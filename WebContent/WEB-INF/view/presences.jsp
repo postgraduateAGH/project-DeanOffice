@@ -4,26 +4,26 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Student's grades</title>
+<title>Student's presences</title>
 </head>
 <body>
-	<h1>Below you can find your grades</h1>
+	<h1>Here you can track your presences.</h1>
 	<table>
 		<tr>
 			<td>Subject</td>
-			<td>Grade</td>
-			<td>Weight</td>
+			<td>Date</td>
+			<td>Presence</td>
 		</tr>
 		<tr>
 			<td>Math</td>
-			<td>4.0</td>
-			<td>20</td>
+			<td>2018-02-01</td>
+			<td>absent</td>
 
 		</tr>
 		<tr>
-			<td>history</td>
-			<td>3</td>
-			<td>1</td>
+			<td>History</td>
+			<td>2018-01-08</td>
+			<td>present</td>
 		</tr>
 	</table>
 	<footer>

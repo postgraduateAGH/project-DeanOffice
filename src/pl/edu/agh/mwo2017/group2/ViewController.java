@@ -36,5 +36,13 @@ public class ViewController {
 	String showStudentGrades() {
 		return "grades";
 	}
+	@RequestMapping("presences")
+	String showStudentPresence() {
+		return "presences";
+	}
+	@RequestMapping("messages")
+	String showStudentMessages() {
+		return "messages";
+	}
 
 }

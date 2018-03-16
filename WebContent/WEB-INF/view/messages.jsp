@@ -4,32 +4,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Student's grades</title>
+<title>Student's messages</title>
 </head>
 <body>
-	<h1>Below you can find your grades</h1>
-	<table>
-		<tr>
-			<td>Subject</td>
-			<td>Grade</td>
-			<td>Weight</td>
-		</tr>
-		<tr>
-			<td>Math</td>
-			<td>4.0</td>
-			<td>20</td>
-
-		</tr>
-		<tr>
-			<td>history</td>
-			<td>3</td>
-			<td>1</td>
-		</tr>
-	</table>
+	<h1>here you can manage your messages.</h1>
 	<footer>
 	<p>
 		Here you can come back to the <a href="student">main page</a>
 	</p>
 	</footer>
 </body>
+
 </html>
