@@ -160,8 +160,8 @@ REPEAT
     <coordinates>
       <x>760</x>
       <y>440</y>
-      <w>350</w>
-      <h>110</h>
+      <w>330</w>
+      <h>100</h>
     </coordinates>
     <panel_attributes>Courses
 --
