@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <help_text>// Uncomment the following line to change the fontsize and font:
+fontsize=12
+// fontfamily=SansSerif //possible: SansSerif,Serif,Monospaced
+
+
+</help_text>
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>520</x>
+      <y>20</y>
+      <w>260</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>/User/
+--
+- int id
+- String name
+- String surname
+- List&lt;Message&gt; messages
+--
+# getMessages(): List&lt;Messages&gt;
+# readMessage(): Message
+# writeMessage(): void
+# sendMessage(int): boolean
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>10</x>
+      <y>240</y>
+      <w>440</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>Student
+--
+- short year
+- String group
+- String labGroup
+- Status status
+--
+&lt;&lt;constructor&gt;&gt; #Student()
+# displayResults(): HashMap &lt;Przedmiot,Oceny&gt;
+# dipslayPresences(): HashMap&lt;Source,HashMap&lt;Calendar,Boolean&gt;&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>470</x>
+      <y>240</y>
+      <w>450</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>Lecturer
+--
+
+--
+# addGrade(Course,Student,Grades): boolean
+# correctGrade(Course,Student,Grades): boolean
+# deleteGrade(Course,Student,Grades): boolean
+
+# addPresence(Course,Student,boolean): void
+# correctGrade(Course,Student,Calendar,Boolean): void
+# deleteGrade(Course,Student,Calendar): void
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>940</x>
+      <y>240</y>
+      <w>270</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>Administrator
+--
+
+--
+# addStudent(): boolean
+# addLecturer(): boolean
+# deleteStudent(): boolean
+# deleteLecturer(): boolean
+# printRaport(): void
+# addCourse(): boolean
+# changeCourse(Course): boolean
+# deleteCourse(Course): boolean
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>220</x>
+      <y>440</y>
+      <w>370</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>Results
+--
+- HashMap&lt;Course,HasMap&lt;Student,Grades&gt;&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>220</x>
+      <y>670</y>
+      <w>140</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;enumeration&gt;&gt;
+Grades
+--
+2
+3
+4
+5
+
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>390</x>
+      <y>670</y>
+      <w>140</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;enumeration&gt;&gt;
+Status
+--
+NORMAL
+CONDITIONAL
+LEAVE
+REPEAT
+
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>760</x>
+      <y>440</y>
+      <w>350</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>Courses
+--
+- Lecturer lecturer
+- String name
+- String description
+--
+&lt;&lt;constructor&gt;&gt; Course(Lecturer,String,String)
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>220</x>
+      <y>160</y>
+      <w>370</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>350.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>620</x>
+      <y>160</y>
+      <w>30</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>730</x>
+      <y>160</y>
+      <w>350</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;330.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>580</x>
+      <y>470</y>
+      <w>200</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=1
+</panel_attributes>
+    <additional_attributes>10.0;20.0;180.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>220</x>
+      <y>580</y>
+      <w>530</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>Presences
+--
+- HashMap&lt;Course,HashMap&lt;Student,HashMap&lt;Calendar,Boolean&gt;&gt;&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
