@@ -6,3 +6,4 @@ public class Runner {
         System.out.println("Hello!");
     }
 }
+Thread.sleep(1);
