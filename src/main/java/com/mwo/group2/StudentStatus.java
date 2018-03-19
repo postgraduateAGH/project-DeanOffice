@@ -1,5 +1,5 @@
 package com.mwo.group2;
 
-enum Status {
+enum StudentStatus {
 	NORMAL, CONDITIONAL, LEAVE, REPEAT
 }
