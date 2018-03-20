@@ -8,5 +8,6 @@ after_success:
 
 deploy:
   provider: heroku
+  app: dziekanat
   api_key: 1afd9691-b8f3-4e97-8be6-fd7ca9e8a060
   skip_cleanup: true
