@@ -1,4 +1,4 @@
-package com.app;
+package pl.mwo2017.dziekanat;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

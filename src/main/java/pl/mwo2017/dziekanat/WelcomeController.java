@@ -1,4 +1,4 @@
-package com.app;
+package pl.mwo2017.dziekanat;
 
 import java.util.Map;
 
