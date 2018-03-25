@@ -2,17 +2,9 @@ package com.mwo.group2;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.Before;
 
 public class StudentTest extends User {
-	
-	/*
-    @Before
-    public void initStudents() {
-		Student student = new Student();
-    }
-    */		
-	
+    		
 	@Test
     public void testGetYear() {
 		Student student = new Student();
@@ -54,8 +46,7 @@ public class StudentTest extends User {
     	student.setLabGroup("test");
     	Assert.assertEquals("test", student.getLabGroup());
     }
-    
-    /*
+     
     @Test
     public void testGetStatus() {
     	Student student = new Student();
@@ -71,17 +62,17 @@ public class StudentTest extends User {
     }
     
     @Test
-    public void testGetOceny() {
+    public void testGetGrades() {
     	Student student = new Student();
-    	student.setOceny("test");
-    	Assert.assertEquals("test", student.getOceny());
+    	student.setGrades("test");
+    	Assert.assertEquals("test", student.getGrades());
     }
     
     @Test
-    public void testSetOceny() {
+    public void testSetGrades() {
     	Student student = new Student();
-    	student.setOceny("test");
-    	Assert.assertEquals("test", student.getOceny());
+    	student.setGrades("test");
+    	Assert.assertEquals("test", student.getGrades());
     }
-	*/
+    
 }
