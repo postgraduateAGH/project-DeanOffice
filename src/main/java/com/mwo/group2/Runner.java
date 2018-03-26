@@ -2,8 +2,7 @@ package com.mwo.group2;
 
 public class Runner {
 
-    public static void main(String[] args) {
-        System.out.println("Hello!");
-    }
+	public static void main(String[] args) {
+		System.out.println("Hello!");
+	}
 }
-
