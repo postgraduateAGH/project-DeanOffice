@@ -21,7 +21,6 @@ public class Administrator extends User {
 
 	public boolean addLecturer(Lecturer lecturer) {
 		return lecturers.put(lecturer, lecturer.getId);
-
 	}
 
 	public boolean deleteStudent(Student student) {
