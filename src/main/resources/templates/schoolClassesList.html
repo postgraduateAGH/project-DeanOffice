@@ -1,0 +1,37 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="layout">
+<head>
+	<link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet" />
+</head>
+<body>
+<div class="container">
+	<div layout:fragment="content">
+		<div th:include="menuFragment" ></div>
+		<br/><Br/>
+		<table border="1" cellpadding="5" id="customers">
+			<tr><th>Id</th><th>Rok rozpoczęcia</th><th>Obecny rok</th><th>Profil</th><th>Akcje</th></tr>
+			<tr th:each="schoolClass: ${schoolClasses}">
+				<td><span th:text="${schoolClass.id}" /></td>
+				<td><span th:text="${schoolClass.startYear}" /></td>
+				<td><span th:text="${schoolClass.currentYear}" /></td>
+				<td><span th:text="${schoolClass.profile}" /></td>
+				<td>
+					<form action="DeleteSchoolClass" method="POST">
+						<input type="hidden" name="schoolClassId" th:value="${schoolClass.id}" />
+						<button class="button"  type="submit">X</button>
+					</form>
+				</td>
+			</tr>
+
+
+		</table><br/><a class="button" href='AddSchoolClass'>dodaj klasę</a><br/><br/>
+
+	</div>
+
+</div>
+<script type="text/javascript"
+		src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</body>
+</html>

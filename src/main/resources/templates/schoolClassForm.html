@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+	<title></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<link rel="stylesheet" type="text/css"
+		  href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+	<link rel="stylesheet" th:href="@{/css/main.css}"
+		  href="../static/css/main.css" />
+
+</head>
+<body>
+
+<div class="container">
+
+	<div layout:fragment="content">
+		<div th:include="menuFragment" ></div>
+		<br/><br/>
+		<form action="CreateSchoolClass" method="POST">
+			<table>
+				<tr><td>rok rozpoczęcia:</td><td><input type="text" name="schoolClassStartYear" /></td></tr>
+				<tr><td>obecny rok:</td><td><input type="text" name="schoolClassCurrentYear" /></td></tr>
+				<tr><td>profil:</td><td><input type="text" name="schoolClassProfile" /></td></tr>
+				<tr><td>szkoła:</td><td><select class="form-control" name="schoolClassSchool" id="schoolClassSchool">
+					<option value="-1">---</option>
+					<option th:each="school: ${schools}" th:value="${school.id}" th:text="${school.name} + ', ' + ${school.address}"></option>
+				</select></td></tr>
+			</table><br/><BR/>
+			<input type="submit" value="Utwórz"/>
+		</form>
+	</div>
+
+</div>
+<script type="text/javascript"
+		src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</body>
+</html>

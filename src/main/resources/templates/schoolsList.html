@@ -1,0 +1,33 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+
+<head>
+	<link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet" />
+</head>
+<body>
+<div class="container">
+    <div layout:fragment="content">
+    	<div th:include="menuFragment" ></div>
+		<br/><Br/>
+		<table border="1" cellpadding="5" id="customers">
+			<tr><th>Id</th><th>Nazwa</th><th>Adres</th><th>Akcje</th></tr>
+			<tr th:each="school: ${schools}">
+				<td><span th:text="${school.id}" /></td>
+				<td><span th:text="${school.name}" /></td>
+				<td><span th:text="${school.address}" /></td>
+		        <td>
+		            <form action="DeleteSchool" method="POST">
+		            	<input type="hidden" name="schoolId" th:value="${school.id}" />
+		                <button class="button" type="submit">X</button>
+		            </form>
+		        </td>
+			</tr>
+		
+		
+		</table><br/><a class="button" href='AddSchool'>dodaj szkołę</a><br/><br/>
+		
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+	<link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet" />
+</head>
+<body>
+<div class="container">
+	<div layout:fragment="content">
+		<div th:include="menuFragment"></div>
+		<br /> <br />
+		<form action="UpdateStudent" method="POST">
+			<table>
+				<tr>
+					<td>imie:</td>
+					<td><input type="text" name="studentName"
+						th:value="${student.name}" /></td>
+				</tr>
+				<tr>
+					<td>nazwisko:</td>
+					<td><input type="text" name="studentSurname"
+						th:value="${student.surname}" /></td>
+				</tr>
+
+				<tr>
+					<td>pesel:</td>
+					<td><input type="text" name="studentPesel"
+						th:value="${student.pesel}" /></td>
+				</tr>
+				<tr>
+					<td><input type="hidden" name="studentId"
+						th:value="${student.id}" /></td>
+				</tr>
+				<tr>
+					<td>Klasa:</td>
+					<td><select class="form-control" name="studentClass"
+						id="studentClass">
+							<option selected="selected" th:value="${student.schoolClass.id}"
+								th:text="${student.schoolClass.profile} + ', ' + ${student.schoolClass.school.name}"></option>
+							<option th:each="class1: ${schoolClasses}"
+								th:value="${class1.id}"
+								th:text="${class1.profile} + ', ' + ${class1.school.name}"></option>
+					</select></td>
+				</tr>
+			</table>
+			<br /> <BR /> <input class="button" type="submit" value="Zapisz" />
+		</form>
+	</div>
+</div>
+</body>
+</html>
+
+

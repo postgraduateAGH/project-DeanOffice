@@ -1,13 +1,12 @@
-package com.mwo.group2;
+package pl.edu.agh.ki.mwo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Runner {
+public class SchoolWebAppApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Runner.class, args);
+		SpringApplication.run(SchoolWebAppApplication.class, args);
 	}
-
 }
