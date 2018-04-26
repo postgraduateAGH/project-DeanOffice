@@ -1,12 +1,17 @@
 package pl.edu.agh.ki.mwo.entity;
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -76,5 +81,26 @@ public class Student implements java.io.Serializable {
 	public void setSchoolClass(SchoolClass schoolClass) {
 		this.schoolClass = schoolClass;
 	}
+
+	public Set<Grade> getGrades() {
+		return grades;
+	}
+
+	public void setGrades(Set<Grade> grades) {
+		this.grades = grades;
+	}
+
+	@ManyToMany(fetch = FetchType.LAZY,
+			cascade = {
+					CascadeType.PERSIST,
+					CascadeType.MERGE
+			})
+	@JoinTable(name = "students_grades",
+			joinColumns = { @JoinColumn(name = "grades_id") },
+			inverseJoinColumns = { @JoinColumn(name = "students_id") })
+	private Set<Grade> grades = new HashSet<>();
+
+
+
 
 }

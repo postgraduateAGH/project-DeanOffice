@@ -1,0 +1,33 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="layout">
+<head>
+	<link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet" />
+</head>
+		<div class="container">
+			<div layout:fragment="content">
+				<div th:include="menuFragment" ></div>
+				<br/><Br/>
+				<table border="1" cellpadding="5" id="customers">
+					<tr>
+						<th>Id</th>
+						<th>Subject</th>
+						<th>Grade</th>
+						<th colspan="2">Actions</th>
+					</tr>
+					<tr th:each="grade: ${grades}">
+						<td><span th:text="${grade.id}" /></td>
+						<td><span th:text="${grade.subject}" /></td>
+						<td><span th:text="${grade.grade}" /></td>
+
+					</tr>
+
+				</table>
+				<br />
+				<a href='AddStudent' class="button"><span
+						></span> Dodaj studenta</a><br />
+				<br />
+			</div>
+		</div>
+</body>
+</html>
