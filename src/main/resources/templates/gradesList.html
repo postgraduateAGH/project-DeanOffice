@@ -13,15 +13,19 @@
 						<th>Id</th>
 						<th>Subject</th>
 						<th>Grade</th>
+						<th>ID</th>
 						<th colspan="2">Actions</th>
 					</tr>
 					<tr th:each="grade: ${grades}">
-						<td><span th:text="${grade.id}" /></td>
-						<td><span th:text="${grade.subject}" /></td>
-						<td><span th:text="${grade.grade}" /></td>
-
+						<td th:if="${grade.id != null}"><span th:text="${grade.id}" /></td>
+						<td th:if="${grade.id == null}">NULL</td>
+						<td th:if="${grade.subject != null}"><span th:text="${grade.subject}" /></td>
+						<td th:if="${grade.subject == null}">NULL</td>
+						<td th:if="${grade.grade != null}"><span th:text="${grade.grade}" /></td>
+						<td th:if="${grade.grade == null}">NULL</td>
+						<td th:if="${grade.student.name != null}"><span th:text="${grade.student.name}" /></td>
+						<td th:if="${grade.student.name == null}">Brak Studenta</td>
 					</tr>
-
 				</table>
 				<br />
 				<a href='AddStudent' class="button"><span

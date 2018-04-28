@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @SuppressWarnings("serial")
@@ -90,16 +91,8 @@ public class Student implements java.io.Serializable {
 		this.grades = grades;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY,
-			cascade = {
-					CascadeType.PERSIST,
-					CascadeType.MERGE
-			})
-	@JoinTable(name = "students_grades",
-			joinColumns = { @JoinColumn(name = "grades_id") },
-			inverseJoinColumns = { @JoinColumn(name = "students_id") })
-	private Set<Grade> grades = new HashSet<>();
-
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
+	private Set<Grade> grades;
 
 
 

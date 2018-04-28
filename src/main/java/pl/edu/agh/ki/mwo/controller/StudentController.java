@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.edu.agh.ki.mwo.entity.SchoolClass;
 import pl.edu.agh.ki.mwo.entity.Student;
+import pl.edu.agh.ki.mwo.repository.GradeRepository;
 import pl.edu.agh.ki.mwo.repository.SchoolClassRepository;
 import pl.edu.agh.ki.mwo.repository.StudentRepository;
 
@@ -22,6 +23,9 @@ public class StudentController {
 
     @Autowired
     private SchoolClassRepository schoolClassRepository;
+
+    @Autowired
+    private GradeRepository gradeRepository;
 
     @RequestMapping(value = "/Students")
     public String listStudents(Model model, HttpSession session) {
@@ -111,5 +115,17 @@ public class StudentController {
         model.addAttribute("message", "Student zostal dodany");
 
         return "studentsList";
+    }
+
+
+  @RequestMapping(value = "/ShowStudentGrades")
+    public String getStudentGrade(@RequestParam(value = "studentId") Long studentId, Model model, HttpSession session) {
+        if (session.getAttribute("userLogin") == null)
+            return "redirect:/Login";
+
+
+        model.addAttribute("grades", gradeRepository.findById((long) 2));
+
+        return "gradesList";
     }
 }

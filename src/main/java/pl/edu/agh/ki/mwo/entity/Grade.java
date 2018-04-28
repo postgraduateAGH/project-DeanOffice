@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @SuppressWarnings("serial")
@@ -52,16 +53,16 @@ public class Grade implements java.io.Serializable {
     @Column
     private double grade;
 
-    public Set<Student> getStudents() {
-        return students;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setStudents(Set<Student> students) {
-        this.students = students;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
-    @ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(name = "students_grades", joinColumns = { @JoinColumn(name = "grade_id") }, inverseJoinColumns = { @JoinColumn(name = "student_id") })
-    Set<Student> students = new HashSet<>();
+    @ManyToOne(cascade = { CascadeType.MERGE, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+    @JoinColumn(name = "student_id", referencedColumnName = "id")
+    private Student student;
 
 }
