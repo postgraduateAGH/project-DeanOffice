@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bootstrap</title>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	crossorigin="anonymous"></script>
+
+</head>
+<body>
+	<div class="container">
+		<br /> 
+		<a href="logout" class="btn btn-info btn-lg"> <span
+			class="glyphicon glyphicon-log-out"></span> Wyloguj
+		</a>
+		<br />
+		<ul class="nav nav-pills nav-justified">
+			<li><a href="Students">Uczniowie</a></li>
+			<li><a href="SchoolClasses">Klasy</a></li>
+			<li class="active"><a href="Schools">Szkoly</a></li>
+		</ul>
+		<br />
+		<table class="table table-hover">
+			<tr>
+				<th>Id</th>
+				<th>Nazwa</th>
+				<th>Adres</th>
+				<th colspan="2">Akcje</th>
+			</tr>
+			<tr th:each="school: ${schools}">
+				<td><span th:text="${school.id}" /></td>
+				<td><p>
+						<span class="glyphicon glyphicon-education" /> <span
+							th:text="${school.name}" />
+					</p></td>
+				<td><p>
+						<span class="glyphicon glyphicon-envelope" /> <span
+							th:text="${school.address}" />
+					</p> </span></span></td>
+				<td>
+					<form action="DeleteSchool" method="POST">
+						<input type="hidden" name="schoolId" th:value="${school.id}" />
+						<button class="btn btn-block btn-danger" type="submit">Skasuj</button>
+					</form>
+				</td>
+				<td>
+					<form action="ShowUpdateSchoolForm" method="POST">
+						<input type="hidden" name="schoolId" th:value="${school.id}" />
+						<button class="btn btn-block btn-default" type="submit">Edytuj</button>
+					</form>
+				</td>
+			</tr>
+		</table>
+		<br /> <a href="AddSchool" class="btn btn-info btn-lg"> <span
+			class="glyphicon glyphicon-plus"></span> Dodaj
+		</a>
+	</div>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
