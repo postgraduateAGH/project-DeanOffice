@@ -1,5 +1,8 @@
 package pl.edu.agh.ki.mwo.SchoolWebApp.controller;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -11,9 +14,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import pl.edu.agh.ki.mwo.SchoolWebApp.entity.Role;
 import pl.edu.agh.ki.mwo.SchoolWebApp.entity.User;
+import pl.edu.agh.ki.mwo.SchoolWebApp.repository.RoleRepository;
 import pl.edu.agh.ki.mwo.SchoolWebApp.service.UserService;
 
 @Controller
@@ -21,6 +27,9 @@ public class LoginController {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private RoleRepository roleRepository;
 
 	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
 	public ModelAndView login() {
@@ -34,12 +43,21 @@ public class LoginController {
 		ModelAndView modelAndView = new ModelAndView();
 		User user = new User();
 		modelAndView.addObject("user", user);
+		Set<Role> roles = new HashSet<Role>();
+		Role role1 = roleRepository.findByRole("ADMIN");
+		Role role2 = roleRepository.findByRole("LECTURER");
+		Role role3 = roleRepository.findByRole("STUDENT");
+		roles.add(role1);
+		roles.add(role2);
+		roles.add(role3);
+		modelAndView.addObject("roles", roles);
 		modelAndView.setViewName("registration");
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
-	public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult) {
+	public ModelAndView createNewUser(@Valid User user, @RequestParam(value = "Role", required = false) String role,
+			BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView();
 		User userExists = userService.findUserByEmail(user.getEmail());
 		if (userExists != null) {
@@ -49,6 +67,8 @@ public class LoginController {
 		if (bindingResult.hasErrors()) {
 			modelAndView.setViewName("registration");
 		} else {
+			Role r = roleRepository.findByRole(role);
+			user.addRole(r);
 			userService.saveUser(user);
 			modelAndView.addObject("successMessage", "User has been registered successfully");
 			modelAndView.addObject("user", new User());

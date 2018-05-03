@@ -1,5 +1,6 @@
 package pl.edu.agh.ki.mwo.SchoolWebApp.entity;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -94,5 +95,12 @@ public class User {
 
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+	
+	public void addRole(Role role) {
+		if (this.roles == null) {
+			this.roles=new HashSet<Role>();
+		}
+		roles.add(role);
 	}
 }
