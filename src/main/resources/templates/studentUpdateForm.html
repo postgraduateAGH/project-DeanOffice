@@ -1,49 +1,58 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layout">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link th:href="@{/css/main.css}" href="/static/css/main.css" rel="stylesheet" type="text/css"/>
+
+</head>
 <body>
+<div class="container">
+    <div layout:fragment="content">
+        <div th:include="menuFragment"></div>
+        <br/> <br/>
+        <form action="UpdateStudent" class="w3-container w3-card-4 w3-light-grey" method="POST">
+            <table>
+                <tr>
+                    <td>imie:</td>
+                    <td><input class="w3-input w3-border" type="text" name="studentName"
+                               th:value="${student.name}"/></td>
+                </tr>
+                <tr>
+                    <td>nazwisko:</td>
+                    <td><input class="w3-input w3-border" type="text" name="studentSurname"
+                               th:value="${student.surname}"/></td>
+                </tr>
 
-	<div layout:fragment="content">
-		<div th:include="menuFragment"></div>
-		<br /> <br />
-		<form action="UpdateStudent" method="POST">
-			<table>
-				<tr>
-					<td>imie:</td>
-					<td><input type="text" name="studentName"
-						th:value="${student.name}" /></td>
-				</tr>
-				<tr>
-					<td>nazwisko:</td>
-					<td><input type="text" name="studentSurname"
-						th:value="${student.surname}" /></td>
-				</tr>
+                <tr>
+                    <td>pesel:</td>
+                    <td><input class="w3-input w3-border" type="text" name="studentPesel"
+                               th:value="${student.pesel}"/></td>
+                    <input class="w3-input w3-border" type="hidden" name="studentId"
+                           th:value="${student.id}"/>
+                </tr>
 
-				<tr>
-					<td>pesel:</td>
-					<td><input type="text" name="studentPesel"
-						th:value="${student.pesel}" /></td>
-				</tr>
-				<tr>
-					<td><input type="hidden" name="studentId"
-						th:value="${student.id}" /></td>
-				</tr>
-				<tr>
-					<td>Klasa:</td>
-					<td><select class="form-control" name="studentClass"
-						id="studentClass">
-							<option selected="selected" th:value="${student.schoolClass.id}"
-								th:text="${student.schoolClass.profile} + ', ' + ${student.schoolClass.school.name}"></option>
-							<option th:each="class1: ${schoolClasses}"
-								th:value="${class1.id}"
-								th:text="${class1.profile} + ', ' + ${class1.school.name}"></option>
-					</select></td>
-				</tr>
-			</table>
-			<br /> <BR /> <input type="submit" value="Zapisz" />
-		</form>
-	</div>
+                <tr>
+                    <td>Klasa:</td>
+                    <td><select class="form-control" name="studentClass"
+                                id="studentClass">
+                        <option selected="selected" th:value="${student.schoolClass.id}"
+                                th:text="${student.schoolClass.profile} + ', ' + ${student.schoolClass.school.name}"></option>
+                        <option th:each="class1: ${schoolClasses}"
+                                th:value="${class1.id}"
+                                th:text="${class1.profile} + ', ' + ${class1.school.name}"></option>
+                    </select></td>
+                </tr>
+            </table>
+            <br/>
+            <button class="button" type="submit">Zapisz</button>
+        </form>
 
+        </form>
+    </div>
+</div>
 </body>
 </html>
 

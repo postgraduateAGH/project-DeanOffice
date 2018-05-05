@@ -1,15 +1,29 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layout">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link rel="stylesheet" type="text/css"
+          href="webjars/bootstrap/3.3.7/css/bootstrap.min.css"/>
+
+    <link rel="stylesheet" th:href="@{/css/main.css}"
+          href="../static/css/main.css"/>
+
+</head>
 <body>
 
-    <div layout:fragment="content">
-		<div th:include="menuFragment" ></div>
-		
-		<br/><br/><br/>
-		WITAMY
-		<br/><br/><br/>
-    </div>
+<div class="container">
+    <div th:include="menuFragment"></div>
+
+    <br/><br/><br/>
+    Welcome!
+    <br/><br/><br/>
+</div>
+
+<script type="text/javascript"
+        src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 
 </body>
 </html>

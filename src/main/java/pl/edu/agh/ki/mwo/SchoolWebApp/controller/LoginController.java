@@ -38,6 +38,12 @@ public class LoginController {
 		return modelAndView;
 	}
 
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String doLogin(@RequestParam(value = "login") String login, Model model, HttpSession session) {
+		session.setAttribute("userLogin", login);
+		return "redirect:/Welcome";
+	}
+
 	@RequestMapping(value = "/registration", method = RequestMethod.GET)
 	public ModelAndView registration() {
 		ModelAndView modelAndView = new ModelAndView();
