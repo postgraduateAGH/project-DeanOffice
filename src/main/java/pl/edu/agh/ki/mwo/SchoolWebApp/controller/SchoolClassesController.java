@@ -25,11 +25,7 @@ public class SchoolClassesController {
 
 	@RequestMapping(value = "/SchoolClasses")
 	public String listSchoolClass(Model model, HttpSession session) {
-		// if (session.getAttribute("userLogin") == null)
-			// return "redirect:/Login";
-
-		// model.addAttribute("schoolClasses",
-		// DatabaseConnector.getInstance().getSchoolClasses());
+		 
 		model.addAttribute("schoolClasses", schoolClassRepository.findAll());
 
 		return "schoolClassesList";
@@ -37,9 +33,9 @@ public class SchoolClassesController {
 
 	@RequestMapping(value = "/AddSchoolClass")
 	public String displayAddSchoolClassForm(Model model, HttpSession session) {
-		// if (session.getAttribute("userLogin") == null)
-			// return "redirect:/Login";
-
+		if (session.getAttribute("userLogin") == null){
+			return "redirect:/login";
+		}
 		model.addAttribute("schools", schoolRepository.findAll());
 
 		return "schoolClassForm";
@@ -51,9 +47,9 @@ public class SchoolClassesController {
 			@RequestParam(value = "schoolClassProfile", required = false) String profile,
 			@RequestParam(value = "schoolClassSchool", required = false) String schoolId, Model model,
 			HttpSession session) {
-		// if (session.getAttribute("userLogin") == null)
-			// return "redirect:/Login";
-
+		if (session.getAttribute("userLogin") == null){
+			return "redirect:/login";
+		}
 		SchoolClass schoolClass = new SchoolClass();
 		schoolClass.setStartYear(Integer.valueOf(startYear));
 		schoolClass.setCurrentYear(Integer.valueOf(currentYear));
@@ -61,7 +57,6 @@ public class SchoolClassesController {
 		School school = schoolRepository.findById(Long.valueOf(schoolId)).get();
 		schoolClass.setSchool(school);
 
-		// DatabaseConnector.getInstance().addSchoolClass(schoolClass, schoolId);
 		schoolClassRepository.save(schoolClass);
 		model.addAttribute("schoolClasses", schoolClassRepository.findAll());
 		model.addAttribute("message", "Nowa klasa została dodana");
@@ -72,10 +67,10 @@ public class SchoolClassesController {
 	@RequestMapping(value = "/DeleteSchoolClass", method = RequestMethod.POST)
 	public String deleteSchoolClass(@RequestParam(value = "schoolClassId", required = false) String schoolClassId,
 			Model model, HttpSession session) {
-		// if (session.getAttribute("userLogin") == null)
-			// return "redirect:/Login";
+		if (session.getAttribute("userLogin") == null){
+			return "redirect:/login";
+		}
 
-		// DatabaseConnector.getInstance().deleteSchoolClass(schoolClassId);
 		schoolClassRepository.deleteById(Long.valueOf(schoolClassId));
 		model.addAttribute("schoolClasses", schoolClassRepository.findAll());
 		model.addAttribute("message", "Klasa została usunięta");
@@ -86,9 +81,9 @@ public class SchoolClassesController {
 	@RequestMapping(value = "/ShowUpdateSchoolClassForm")
 	public String showUpdateSchoolClassForm(@RequestParam(value = "schoolClassId") String schoolClassId, Model model,
 			HttpSession session) {
-		// if (session.getAttribute("userLogin") == null)
-			// return "redirect:/Login";
-
+		if (session.getAttribute("userLogin") == null){
+			return "redirect:/login";
+		}
 		SchoolClass schoolClass = schoolClassRepository.findById(Long.valueOf(schoolClassId)).get();
 		model.addAttribute("schoolClass", schoolClass);
 		model.addAttribute("schools", schoolRepository.findAll());
@@ -104,8 +99,9 @@ public class SchoolClassesController {
 			@RequestParam(value = "schoolClassId") String schoolClassId,
 			@RequestParam(value = "schoolClassSchool") String schoolClassSchool, Model model, HttpSession session) {
 
-		// if (session.getAttribute("userLogin") == null)
-			// return "redirect:/Login";
+		if (session.getAttribute("userLogin") == null){
+			return "redirect:/login";
+		}
 
 		SchoolClass schoolClass = schoolClassRepository.findById(Long.valueOf(schoolClassId)).get();
 		schoolClass.setStartYear(Integer.valueOf(schoolClassStartYear));

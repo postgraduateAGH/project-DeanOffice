@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import pl.edu.agh.ki.mwo.SchoolWebApp.entity.School;
 import pl.edu.agh.ki.mwo.SchoolWebApp.entity.SchoolClass;
 import pl.edu.agh.ki.mwo.SchoolWebApp.entity.Student;
 import pl.edu.agh.ki.mwo.SchoolWebApp.repository.SchoolClassRepository;
@@ -18,105 +17,92 @@ import pl.edu.agh.ki.mwo.SchoolWebApp.repository.StudentRepository;
 @Controller
 public class StudentController {
 
-	@Autowired
-	private StudentRepository studentRepository;
-	@Autowired
-	private SchoolClassRepository schoolClassRepository;
+    @Autowired
+    private StudentRepository studentRepository;
 
-	@RequestMapping(value = "/Students")
-	public String listStudents(Model model, HttpSession session) {
-		// if (session.getAttribute("userLogin") == null)
-			// return "redirect:/Login";
+    @Autowired
+    private SchoolClassRepository schoolClassRepository;
 
-		model.addAttribute("students", studentRepository.findAll());
-		return "studentsList";
-	}
+    @RequestMapping(value = "/Students")
+    public String listStudents(Model model, HttpSession session) {
 
-	@RequestMapping(value = "/DeleteStudent", method = RequestMethod.POST)
-	public String deleteStudent(@RequestParam(value = "studentId", required = false) String studentId, Model model,
-			HttpSession session) {
-		// if (session.getAttribute("userLogin") == null)
-			// return "redirect:/Login";
+        model.addAttribute("students", studentRepository.findAll());
+        return "studentsList";
+    }
 
-		// DatabaseConnector.getInstance().deleteSchool(schoolId);
-		studentRepository.deleteById(Long.valueOf(studentId));
+    @RequestMapping(value = "/DeleteStudent", method = RequestMethod.POST)
+    public String deleteStudent(@RequestParam(value = "studentId", required = false) String studentId, Model model, HttpSession session) {
 
-		model.addAttribute("students", studentRepository.findAll());
-		model.addAttribute("message", "Student zostal dodany");
+        studentRepository.deleteById(Long.valueOf(studentId));
 
-		return "studentsList";
-	}
+        model.addAttribute("students", studentRepository.findAll());
+        model.addAttribute("message", "Student zostal dodany");
 
-	@RequestMapping(value = "/AddStudent")
-	public String displayAddStudentForm(Model model, HttpSession session) {
-		// if (session.getAttribute("userLogin") == null)
-			// return "redirect:/Login";
-		model.addAttribute("classes", schoolClassRepository.findAll());
-		return "studentForm";
-	}
+        return "studentsList";
+    }
 
-	@RequestMapping(value = "/CreateStudent", method = RequestMethod.POST)
-	public String createStudent(@RequestParam(value = "studentName", required = false) String studentName,
-			@RequestParam(value = "studentSurname", required = false) String studentSurname,
-			@RequestParam(value = "studentPesel", required = false) String studentPesel,
-			@RequestParam(value = "studentClass", required = false) String studentClass, Model model,
-			HttpSession session) {
-		// if (session.getAttribute("userLogin") == null)
-			// return "redirect:/Login";
+    @RequestMapping(value = "/AddStudent")
+    public String displayAddStudentForm(Model model, HttpSession session) {
 
-		Student student = new Student();
-		student.setName(studentName);
-		student.setSurname(studentSurname);
-		student.setPesel(studentPesel);
-		SchoolClass schoolClass = schoolClassRepository.findById(Long.valueOf(studentClass)).get();
-		student.setSchoolClass(schoolClass);
+        model.addAttribute("classes", schoolClassRepository.findAll());
+        return "studentForm";
+    }
 
-		// DatabaseConnector.getInstance().addSchoolClass(schoolClass, schoolId);
-		studentRepository.save(student);
+    @RequestMapping(value = "/CreateStudent", method = RequestMethod.POST)
+    public String createStudent(@RequestParam(value = "studentName", required = false) String studentName,
+            @RequestParam(value = "studentSurname", required = false) String studentSurname,
+            @RequestParam(value = "studentPesel", required = false) String studentPesel,
+            @RequestParam(value = "studentClass", required = false) String studentClass, Model model, HttpSession session) {
 
-		model.addAttribute("students", studentRepository.findAll());
-		model.addAttribute("message", "Student zostal dodany");
+        Student student = new Student();
+        student.setName(studentName);
+        student.setSurname(studentSurname);
+        student.setPesel(studentPesel);
+        SchoolClass schoolClass = schoolClassRepository.findById(Long.valueOf(studentClass)).get();
+        student.setSchoolClass(schoolClass);
 
-		return "studentsList";
-	}
+        studentRepository.save(student);
 
-	@RequestMapping(value = "/ShowUpdateStudentForm")
-	public String showUpdateStudentForm(@RequestParam(value = "studentId") Long studentId, Model model,
-			HttpSession session) {
-		// if (session.getAttribute("userLogin") == null)
-			// return "redirect:/Login";
-		Student student = studentRepository.findById(studentId).get();
-		model.addAttribute("student", student);
-		model.addAttribute("schoolClasses", schoolClassRepository.findAll());
+        model.addAttribute("students", studentRepository.findAll());
+        model.addAttribute("message", "Student zostal dodany");
 
-		return "studentUpdateForm";
-	}
+        return "studentsList";
+    }
 
-	@RequestMapping(value = "/UpdateStudent", method = RequestMethod.POST)
-	public String updateSchoolClass(@RequestParam(value = "studentName", required = false) String studentName,
-			@RequestParam(value = "studentSurname", required = false) String studentSurname,
-			@RequestParam(value = "studentPesel") String studentPesel,
-			@RequestParam(value = "studentId") Long studentId, @RequestParam(value = "studentClass") Long studentClass,
-			Model model, HttpSession session) {
+    @RequestMapping(value = "/ShowUpdateStudentForm")
+    public String showUpdateStudentForm(@RequestParam(value = "studentId") Long studentId, Model model, HttpSession session) {
 
-		// if (session.getAttribute("userLogin") == null)
-			// return "redirect:/Login";
+        Student student = studentRepository.findById(studentId).get();
+        model.addAttribute("student", student);
+        if (schoolClassRepository.findAll() != null){
+            model.addAttribute("schoolClasses", schoolClassRepository.findAll());
+        }
 
-		Student student = studentRepository.findById(studentId).get();
-		student.setName(studentName);
-		student.setSurname(studentName);
-		student.setPesel(studentPesel);
+        return "studentUpdateForm";
+    }
 
-		SchoolClass schoolClass = schoolClassRepository.findById(studentClass).get();
+    @RequestMapping(value = "/UpdateStudent", method = RequestMethod.POST)
+    public String updateSchoolClass(@RequestParam(value = "studentName", required = false) String studentName,
+            @RequestParam(value = "studentSurname", required = false) String studentSurname, @RequestParam(value = "studentPesel") String studentPesel,
+            @RequestParam(value = "studentId") Long studentId, @RequestParam(value = "studentClass") Long studentClass, Model model, HttpSession session) {
 
-		student.setSchoolClass(schoolClass);
 
-		// update
-		studentRepository.save(student);
 
-		model.addAttribute("students", studentRepository.findAll());
-		model.addAttribute("message", "Student zostal dodany");
+        Student student = studentRepository.findById(studentId).get();
+        student.setName(studentName);
+        student.setSurname(studentName);
+        student.setPesel(studentPesel);
 
-		return "studentsList";
-	}
+        SchoolClass schoolClass = schoolClassRepository.findById(studentClass).get();
+
+        student.setSchoolClass(schoolClass);
+
+        // update
+        studentRepository.save(student);
+
+        model.addAttribute("students", studentRepository.findAll());
+        model.addAttribute("message", "Student zostal dodany");
+
+        return "studentsList";
+    }
 }

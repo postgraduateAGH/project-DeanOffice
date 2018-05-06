@@ -1,12 +1,19 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="layout">
-<body>
+<<html xmlns="http://www.w3.org/1999/xhtml"
+	   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	   xmlns:th="http://www.thymeleaf.org"
+	   layout:decorator="layout">
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link th:href="@{/css/main.css}" href="/static/css/main.css" rel="stylesheet" type="text/css"  />
 
+</head>
+<body>
+<div class="container">
 	<div layout:fragment="content">
 		<div th:include="menuFragment"></div>
 		<br /> <br />
-		<form action="UpdateSchoolClass" method="POST">
+		<form action="UpdateSchoolClass" class="w3-container w3-card-4 w3-light-grey" method="POST">
 			<table>
 				<tr>
 					<td>rok rozpoczęcia:</td>
@@ -22,11 +29,10 @@
 					<td>profil:</td>
 					<td><input type="text" name="schoolClassProfile"
 						th:value="${schoolClass.profile}" /></td>
+					<input type="hidden" name="schoolClassId"
+					th:value="${schoolClass.id}" />
 				</tr>
-				<tr>
-					<td><input type="hidden" name="schoolClassId"
-						th:value="${schoolClass.id}" /></td>
-				</tr>
+
 				<tr>
 					<td>szkoła:</td>
 					<td><select class="form-control" name="schoolClassSchool"
@@ -38,7 +44,7 @@
 					</select></td>
 				</tr>
 			</table>
-			<br /> <BR /> <input type="submit" value="Zapisz" />
+			<br /> <BR /> <button class="button"  type="submit">Zapisz</button>
 		</form>
 	</div>
 
