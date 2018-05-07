@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PreRemove;
 import javax.persistence.Table;
 
 @Entity
@@ -28,7 +29,7 @@ public class Teacher {
 	@Column
 	private String pesel;
 
-	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.MERGE, CascadeType.PERSIST,
+	@OneToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
 			CascadeType.REFRESH }, mappedBy = "teacher")
 	private Set<SchoolClass> charges;
 
@@ -111,5 +112,10 @@ public class Teacher {
 	}
 
 	// HELPERS
-
+	@PreRemove
+	private void removeAssociationsWithChilds() {
+		for (SchoolClass sc : charges) {
+			sc.setTeacher(null);
+		}
+	}
 }

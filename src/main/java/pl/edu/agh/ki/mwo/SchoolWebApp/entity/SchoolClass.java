@@ -22,7 +22,7 @@ public class SchoolClass implements java.io.Serializable {
 	@Column
 	private String profile;
 	
-	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE, CascadeType.PERSIST,
+	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
 			CascadeType.REFRESH })
 	@JoinColumn(name = "teacher_id",nullable=true)
 	private Teacher teacher;
