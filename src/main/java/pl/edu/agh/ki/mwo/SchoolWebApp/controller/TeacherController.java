@@ -30,18 +30,18 @@ public class TeacherController {
         return "teachersList";
     }
 
-/*    @RequestMapping(value = "/DeleteStudent", method = RequestMethod.POST)
-    public String deleteStudent(@RequestParam(value = "studentId", required = false) String studentId, Model model, HttpSession session) {
+    @RequestMapping(value = "/DeleteTeacher", method = RequestMethod.POST)
+    public String deleteTeacher(@RequestParam(value = "teacherId", required = false) String teacherId, Model model, HttpSession session) {
 
-        teacherRepository.deleteById(Long.valueOf(studentId));
+        teacherRepository.deleteById(Long.valueOf(teacherId));
 
-        model.addAttribute("students", teacherRepository.findAll());
-        model.addAttribute("message", "Student zostal dodany");
+        model.addAttribute("teachers", teacherRepository.findAll());
+        model.addAttribute("message", "Nauczyciel zostal dodany");
 
-        return "studentsList";
+        return "teachersList";
     }
 
-    @RequestMapping(value = "/AddStudent")
+/*    @RequestMapping(value = "/AddStudent")
     public String displayAddStudentForm(Model model, HttpSession session) {
 
         model.addAttribute("classes", schoolClassRepository.findAll());
