@@ -28,12 +28,13 @@
 					<td><span th:text="${teacher.surname}" /></td>
 					<td><span th:text="${teacher.title}" /></td>
 					<td><span th:text="${teacher.pesel}" /></td>
-					<td></td>
-					<!-- 					<td th:if="${student.schoolClass != null}"><span th:text="${student.schoolClass.profile}" /></td>
-					<td th:if="${student.schoolClass == null}">NIE MA</td>
-					<td th:if="${student.schoolClass != null}"><span th:text="${student.schoolClass.school.name}" /></td>
-					<td th:if="${student.schoolClass == null}">NIE MA</td>
- 					-->
+					<td th:if="${teacher.charges != null}">
+					<ul th:each="klasa: ${teacher.charges}">
+						<ol>
+						<span th:text="${klasa.startYear}+' '+${klasa.profile}" />
+					</ul>
+					<td th:if="${teacher.charges == null}">NIE MA</td>
+ 					
 					<td>
 						<form action="DeleteTeacher" method="POST">
 							<input type="hidden" name="teacherId" th:value="${teacher.id}" />
