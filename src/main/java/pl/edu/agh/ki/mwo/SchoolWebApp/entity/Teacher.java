@@ -3,17 +3,36 @@ package pl.edu.agh.ki.mwo.SchoolWebApp.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "teachers")
 public class Teacher {
-// PROPERTIES
+	// PROPERTIES
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	@Column
 	private String name;
+	@Column
 	private String surname;
+	@Column
 	private String title;
+	@Column
 	private String pesel;
 
+	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.MERGE, CascadeType.PERSIST,
+			CascadeType.REFRESH }, mappedBy = "schoolClass")
 	private Set<SchoolClass> charges;
 
-// CONSTRUCTORS
+	// CONSTRUCTORS
 	public Teacher(String name, String surname, String title, String pesel) {
 		this();
 		this.name = name;
@@ -25,7 +44,7 @@ public class Teacher {
 	public Teacher() {
 		super();
 	}
-// GETTERS & SETTERS
+	// GETTERS & SETTERS
 
 	public long getId() {
 		return id;
@@ -73,25 +92,24 @@ public class Teacher {
 
 	public void setCharges(Set<SchoolClass> lectures) {
 		if (charges == null) {
-			charges=new HashSet<SchoolClass>();
+			charges = new HashSet<SchoolClass>();
 		}
 		this.charges = lectures;
 	}
-	
+
 	public void addCharges(SchoolClass schoolClass) {
 		if (charges == null) {
-			charges=new HashSet<SchoolClass>(); 
+			charges = new HashSet<SchoolClass>();
 		}
 		charges.add(schoolClass);
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Teacher [id=" + id + ", name=" + name + ", surname=" + surname + ", title=" + title + ", pesel=" + pesel
 				+ ", charges=" + charges + "]";
 	}
-	
-// HELPERS
-	
-	
+
+	// HELPERS
+
 }

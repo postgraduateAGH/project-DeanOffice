@@ -21,7 +21,17 @@ public class SchoolClass implements java.io.Serializable {
 
 	@Column
 	private String profile;
+	
+	@Column 
+	private Teacher teacher;
 
+	public Teacher getTeacher() {
+		return teacher;
+	}
+
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
+	}
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
 	@JoinColumn(name = "school_id", referencedColumnName = "id")
 	private School school;

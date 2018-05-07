@@ -1,0 +1,59 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:th="http://www.thymeleaf.org"
+	  layout:decorator="layout">
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link th:href="@{/css/main.css}" href="/static/css/main.css" rel="stylesheet" type="text/css"  />
+
+</head>
+<div class="container">
+	<div class="table table-hover">
+		<div layout:fragment="content">
+			<div th:include="menuFragment" ></div>
+			<br/><Br/>
+			<table border="1">
+				<tr>
+					<th>Id</th>
+					<th>Nazwa</th>
+					<th>Adres</th>
+					<th>profil</th>
+					<th>pesel</th>
+					<th>Szkola</th>
+					<th colspan="3">Akcje</th>
+				</tr>
+				<tr  th:each="student: ${students}">
+					<td><span th:text="${student.id}" /></td>
+					<td><span th:text="${student.name}" /></td>
+					<td><span th:text="${student.surname}" /></td>
+					<td th:if="${student.schoolClass != null}"><span th:text="${student.schoolClass.profile}" /></td>
+					<td th:if="${student.schoolClass == null}">NIE MA</td>
+					<td><span th:text="${student.pesel}" /></td>
+					<td th:if="${student.schoolClass != null}"><span th:text="${student.schoolClass.school.name}" /></td>
+					<td th:if="${student.schoolClass == null}">NIE MA</td>
+					<td>
+						<form action="DeleteStudent" method="POST">
+							<input type="hidden" name="studentId" th:value="${student.id}" />
+							<input class="btn btn-primary" type=submit value="Skasuj" style="width:100%">
+						</form>
+					</td>
+					<td>
+						<form action="ShowUpdateStudentForm" method="POST">
+							<input type="hidden" name="studentId" th:value="${student.id}" />
+							<input class="btn btn-primary" type=submit value="Edytuj" style="width:100%">
+						</form>
+					</td>
+				</tr>
+
+			</table>
+			<br />
+			<form action="AddStudent" method="GET">
+				<button class="button"  type="submit">Dodaj studenta</button>
+			</form>
+
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
