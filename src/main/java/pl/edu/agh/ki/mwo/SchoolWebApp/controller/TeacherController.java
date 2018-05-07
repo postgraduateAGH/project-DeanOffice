@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.edu.agh.ki.mwo.SchoolWebApp.entity.SchoolClass;
 import pl.edu.agh.ki.mwo.SchoolWebApp.entity.Student;
+import pl.edu.agh.ki.mwo.SchoolWebApp.entity.Teacher;
 import pl.edu.agh.ki.mwo.SchoolWebApp.repository.SchoolClassRepository;
 import pl.edu.agh.ki.mwo.SchoolWebApp.repository.TeacherRepository;
 
@@ -68,19 +69,19 @@ public class TeacherController {
 
         return "studentsList";
     }
+*/
+    @RequestMapping(value = "/ShowUpdateTeacherForm")
+    public String showUpdateStudentForm(@RequestParam(value = "teacherId") Long teacherId, Model model, HttpSession session) {
 
-    @RequestMapping(value = "/ShowUpdateStudentForm")
-    public String showUpdateStudentForm(@RequestParam(value = "studentId") Long studentId, Model model, HttpSession session) {
-
-        Student student = teacherRepository.findById(studentId).get();
-        model.addAttribute("student", student);
-        if (schoolClassRepository.findAll() != null){
+        Teacher student = teacherRepository.findById(teacherId).get();
+        model.addAttribute("teacher", student);
+/*        if (schoolClassRepository.findAll() != null){
             model.addAttribute("schoolClasses", schoolClassRepository.findAll());
         }
-
-        return "studentUpdateForm";
+*/
+        return "teacherUpdateForm";
     }
-
+/*
     @RequestMapping(value = "/UpdateStudent", method = RequestMethod.POST)
     public String updateSchoolClass(@RequestParam(value = "studentName", required = false) String studentName,
             @RequestParam(value = "studentSurname", required = false) String studentSurname, @RequestParam(value = "studentPesel") String studentPesel,
