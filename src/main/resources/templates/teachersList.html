@@ -1,0 +1,63 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:th="http://www.thymeleaf.org"
+	  layout:decorator="layout">
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link th:href="@{/css/main.css}" href="/static/css/main.css" rel="stylesheet" type="text/css"  />
+
+</head>
+<div class="container">
+	<div class="table table-hover">
+		<div layout:fragment="content">
+			<div th:include="menuFragment" ></div>
+			<br/><Br/>
+			<table border="1">
+				<tr>
+					<th>Id</th>
+					<th>Imie</th>
+					<th>Nazwisko</th>
+					<th>tytul</th>
+					<th>PESEL</th>
+					<th>Klasy</th>
+					<th colspan="3">Akcje</th>
+				</tr>
+				<tr  th:each="teacher: ${teachers}">
+					<td><span th:text="${teacher.id}" /></td>
+					<td><span th:text="${teacher.name}" /></td>
+					<td><span th:text="${teacher.surname}" /></td>
+					<td><span th:text="${teacher.title}" /></td>
+					<td><span th:text="${teacher.pesel}" /></td>
+					<td th:if="${teacher.charges != null}">
+					<ul th:each="klasa: ${teacher.charges}">
+						<ol>
+						<span th:text="${klasa.startYear}+' '+${klasa.profile}" />
+					</ul>
+					<td th:if="${teacher.charges == null}">NIE MA</td>
+ 					
+					<td>
+						<form action="DeleteTeacher" method="POST">
+							<input type="hidden" name="teacherId" th:value="${teacher.id}" />
+							<input class="btn btn-primary" type=submit value="Skasuj" style="width:100%">
+						</form>
+					</td>
+					<td>
+						<form action="ShowUpdateTeacherForm" method="POST">
+							<input type="hidden" name="teacherId" th:value="${teacher.id}" />
+							<input class="btn btn-primary" type=submit value="Edytuj" style="width:100%">
+						</form>
+					</td>
+				</tr>
+
+			</table>
+			<br />
+			<form action="AddTeacher" method="GET">
+				<button class="button"  type="submit">Dodaj nauczyciela</button>
+			</form>
+
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

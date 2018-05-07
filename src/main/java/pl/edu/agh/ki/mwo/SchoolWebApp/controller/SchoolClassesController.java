@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.edu.agh.ki.mwo.SchoolWebApp.repository.SchoolClassRepository;
 import pl.edu.agh.ki.mwo.SchoolWebApp.repository.SchoolRepository;
+import pl.edu.agh.ki.mwo.SchoolWebApp.repository.TeacherRepository;
 import pl.edu.agh.ki.mwo.SchoolWebApp.entity.School;
 import pl.edu.agh.ki.mwo.SchoolWebApp.entity.SchoolClass;
 //import pl.edu.agh.ki.mwo.persistence.DatabaseConnector;
+import pl.edu.agh.ki.mwo.SchoolWebApp.entity.Teacher;
 
 @Controller
 public class SchoolClassesController {
@@ -22,6 +24,8 @@ public class SchoolClassesController {
 	private SchoolRepository schoolRepository;
 	@Autowired
 	private SchoolClassRepository schoolClassRepository;
+	@Autowired
+	private TeacherRepository teacherRepository;
 
 	@RequestMapping(value = "/SchoolClasses")
 	public String listSchoolClass(Model model, HttpSession session) {
@@ -35,6 +39,7 @@ public class SchoolClassesController {
 	public String displayAddSchoolClassForm(Model model, HttpSession session) {
 
 		model.addAttribute("schools", schoolRepository.findAll());
+		model.addAttribute("teachers", teacherRepository.findAll());
 
 		return "schoolClassForm";
 	}
@@ -43,7 +48,9 @@ public class SchoolClassesController {
 	public String createSchoolClass(@RequestParam(value = "schoolClassStartYear", required = false) String startYear,
 			@RequestParam(value = "schoolClassCurrentYear", required = false) String currentYear,
 			@RequestParam(value = "schoolClassProfile", required = false) String profile,
-			@RequestParam(value = "schoolClassSchool", required = false) String schoolId, Model model,
+			@RequestParam(value = "schoolClassSchool", required = false) String schoolId, 
+			@RequestParam(value = "schoolClassSchool", required = false) String teacherId,
+			Model model,
 			HttpSession session) {
 
 		SchoolClass schoolClass = new SchoolClass();
@@ -51,7 +58,9 @@ public class SchoolClassesController {
 		schoolClass.setCurrentYear(Integer.valueOf(currentYear));
 		schoolClass.setProfile(profile);
 		School school = schoolRepository.findById(Long.valueOf(schoolId)).get();
+		Teacher teacher = teacherRepository.findById(Long.valueOf(teacherId)).get();
 		schoolClass.setSchool(school);
+		schoolClass.setTeacher(teacher);
 
 		schoolClassRepository.save(schoolClass);
 		model.addAttribute("schoolClasses", schoolClassRepository.findAll());
@@ -78,6 +87,7 @@ public class SchoolClassesController {
 		SchoolClass schoolClass = schoolClassRepository.findById(Long.valueOf(schoolClassId)).get();
 		model.addAttribute("schoolClass", schoolClass);
 		model.addAttribute("schools", schoolRepository.findAll());
+		model.addAttribute("teachers", teacherRepository.findAll());
 
 		return "schoolClassUpdateForm";
 	}
@@ -88,10 +98,12 @@ public class SchoolClassesController {
 			@RequestParam(value = "schoolClassCurrentYear", required = false) String schoolClassCurrentYear,
 			@RequestParam(value = "schoolClassProfile") String schoolClassProfile,
 			@RequestParam(value = "schoolClassId") String schoolClassId,
+			@RequestParam(value = "teacherId") String teacherId,
 			@RequestParam(value = "schoolClassSchool") String schoolClassSchool, Model model, HttpSession session) {
 
 
 		SchoolClass schoolClass = schoolClassRepository.findById(Long.valueOf(schoolClassId)).get();
+		Teacher teacher = teacherRepository.findById(Long.valueOf(teacherId)).get();
 		schoolClass.setStartYear(Integer.valueOf(schoolClassStartYear));
 		schoolClass.setCurrentYear(Integer.valueOf(schoolClassCurrentYear));
 		schoolClass.setProfile(schoolClassProfile);
@@ -99,6 +111,7 @@ public class SchoolClassesController {
 		School school = schoolRepository.findById(Long.valueOf(schoolClassSchool)).get();
 
 		schoolClass.setSchool(school);
+		schoolClass.setTeacher(teacher);
 		// update
 		schoolClassRepository.save(schoolClass);
 		model.addAttribute("schoolClasses", schoolClassRepository.findAll());
