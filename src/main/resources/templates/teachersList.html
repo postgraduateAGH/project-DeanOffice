@@ -15,31 +15,34 @@
 			<table border="1">
 				<tr>
 					<th>Id</th>
-					<th>Nazwa</th>
-					<th>Adres</th>
-					<th>profil</th>
-					<th>pesel</th>
-					<th>Szkola</th>
+					<th>Imie</th>
+					<th>Nazwisko</th>
+					<th>tytul</th>
+					<th>PESEL</th>
+					<th>Klasy</th>
 					<th colspan="3">Akcje</th>
 				</tr>
-				<tr  th:each="student: ${students}">
-					<td><span th:text="${student.id}" /></td>
-					<td><span th:text="${student.name}" /></td>
-					<td><span th:text="${student.surname}" /></td>
-					<td th:if="${student.schoolClass != null}"><span th:text="${student.schoolClass.profile}" /></td>
+				<tr  th:each="teacher: ${teachers}">
+					<td><span th:text="${teacher.id}" /></td>
+					<td><span th:text="${teacher.name}" /></td>
+					<td><span th:text="${teacher.surname}" /></td>
+					<td><span th:text="${teacher.title}" /></td>
+					<td><span th:text="${teacher.pesel}" /></td>
+					<td></td>
+					<!-- 					<td th:if="${student.schoolClass != null}"><span th:text="${student.schoolClass.profile}" /></td>
 					<td th:if="${student.schoolClass == null}">NIE MA</td>
-					<td><span th:text="${student.pesel}" /></td>
 					<td th:if="${student.schoolClass != null}"><span th:text="${student.schoolClass.school.name}" /></td>
 					<td th:if="${student.schoolClass == null}">NIE MA</td>
+ 					-->
 					<td>
-						<form action="DeleteStudent" method="POST">
-							<input type="hidden" name="studentId" th:value="${student.id}" />
+						<form action="DeleteTeacher" method="POST">
+							<input type="hidden" name="teacherId" th:value="${teacher.id}" />
 							<input class="btn btn-primary" type=submit value="Skasuj" style="width:100%">
 						</form>
 					</td>
 					<td>
-						<form action="ShowUpdateStudentForm" method="POST">
-							<input type="hidden" name="studentId" th:value="${student.id}" />
+						<form action="ShowUpdateteacherForm" method="POST">
+							<input type="hidden" name="teacherId" th:value="${teacher.id}" />
 							<input class="btn btn-primary" type=submit value="Edytuj" style="width:100%">
 						</form>
 					</td>
@@ -47,8 +50,8 @@
 
 			</table>
 			<br />
-			<form action="AddStudent" method="GET">
-				<button class="button"  type="submit">Dodaj studenta</button>
+			<form action="AddTeacher" method="GET">
+				<button class="button"  type="submit">Dodaj nauczyciela</button>
 			</form>
 
 		</div>
