@@ -17,7 +17,9 @@
 				<th>Rok rozpoczęcia</th>
 				<th>Obecny rok</th>
 				<th>Profil</th>
+				<th>Nauczyciel</th>
 				<th>Szkola</th>
+
 				<th colspan="2">Akcje</th>
 			</tr>
 			<tr th:each="schoolClass: ${schoolClasses}">
@@ -25,6 +27,8 @@
 				<td><span th:text="${schoolClass.startYear}" /></td>
 				<td><span th:text="${schoolClass.currentYear}" /></td>
 				<td><span th:text="${schoolClass.profile}" /></td>
+				<td th:if="${schoolClass.teacher != null}"><span th:text="${schoolClass.teacher.name}+' '+${schoolClass.teacher.surname}" /></td>
+				<td th:if="${schoolClass.teacher == null}">NIE MA</td>
 				<td><span
 					th:text="${schoolClass.school.name}+' - '+${schoolClass.school.address}" /></td>
 				<td>
