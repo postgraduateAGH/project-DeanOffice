@@ -43,38 +43,38 @@ public class TeacherController {
 		return "teachersList";
 	}
 
-	/*
-	 * @RequestMapping(value = "/AddStudent") public String
-	 * displayAddStudentForm(Model model, HttpSession session) {
-	 * 
-	 * model.addAttribute("classes", schoolClassRepository.findAll()); return
-	 * "studentForm"; }
-	 * 
-	 * @RequestMapping(value = "/CreateStudent", method = RequestMethod.POST) public
-	 * String createStudent(@RequestParam(value = "studentName", required = false)
-	 * String studentName,
-	 * 
-	 * @RequestParam(value = "studentSurname", required = false) String
-	 * studentSurname,
-	 * 
-	 * @RequestParam(value = "studentPesel", required = false) String studentPesel,
-	 * 
-	 * @RequestParam(value = "studentClass", required = false) String studentClass,
-	 * Model model, HttpSession session) {
-	 * 
-	 * Student student = new Student(); student.setName(studentName);
-	 * student.setSurname(studentSurname); student.setPesel(studentPesel);
-	 * SchoolClass schoolClass =
-	 * schoolClassRepository.findById(Long.valueOf(studentClass)).get();
-	 * student.setSchoolClass(schoolClass);
-	 * 
-	 * teacherRepository.save(student);
-	 * 
-	 * model.addAttribute("students", teacherRepository.findAll());
-	 * model.addAttribute("message", "Student zostal dodany");
-	 * 
-	 * return "studentsList"; }
-	 */
+	@RequestMapping(value = "/AddTeacher")
+	public String displayAddStudentForm(Model model, HttpSession session) {
+
+		model.addAttribute("classes", schoolClassRepository.findAll());
+		return "teacherForm";
+	}
+
+	@RequestMapping(value = "/CreateTeacher", method = RequestMethod.POST)
+	public String createTeacher(@RequestParam(value = "teacherName", required = false) String teacherName,
+
+			@RequestParam(value = "teacherSurname", required = false) String teacherSurname,
+
+			@RequestParam(value = "teacherTitle", required = false) String teacherTitle,
+
+			@RequestParam(value = "teacherPesel", required = false) String teacherPesel,
+
+			Model model, HttpSession session) {
+
+		Teacher teacher = new Teacher();
+		teacher.setName(teacherName);
+		teacher.setSurname(teacherSurname);
+		teacher.setTitle(teacherTitle);
+		teacher.setPesel(teacherPesel);
+
+		teacherRepository.save(teacher);
+
+		model.addAttribute("teachers", teacherRepository.findAll());
+		model.addAttribute("message", "Nauczyciel zostal dodany");
+
+		return "teachersList";
+	}
+
 	@RequestMapping(value = "/ShowUpdateTeacherForm")
 	public String showUpdateStudentForm(@RequestParam(value = "teacherId") Long teacherId, Model model,
 			HttpSession session) {
