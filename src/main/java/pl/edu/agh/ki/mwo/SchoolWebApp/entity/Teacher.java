@@ -29,7 +29,7 @@ public class Teacher {
 	private String pesel;
 
 	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.MERGE, CascadeType.PERSIST,
-			CascadeType.REFRESH }, mappedBy = "schoolClass")
+			CascadeType.REFRESH }, mappedBy = "teacher")
 	private Set<SchoolClass> charges;
 
 	// CONSTRUCTORS
