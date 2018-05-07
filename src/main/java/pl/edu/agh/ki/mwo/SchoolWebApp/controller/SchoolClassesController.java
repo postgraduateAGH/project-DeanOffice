@@ -87,6 +87,7 @@ public class SchoolClassesController {
 		SchoolClass schoolClass = schoolClassRepository.findById(Long.valueOf(schoolClassId)).get();
 		model.addAttribute("schoolClass", schoolClass);
 		model.addAttribute("schools", schoolRepository.findAll());
+		model.addAttribute("teachers", teacherRepository.findAll());
 
 		return "schoolClassUpdateForm";
 	}
@@ -97,10 +98,12 @@ public class SchoolClassesController {
 			@RequestParam(value = "schoolClassCurrentYear", required = false) String schoolClassCurrentYear,
 			@RequestParam(value = "schoolClassProfile") String schoolClassProfile,
 			@RequestParam(value = "schoolClassId") String schoolClassId,
+			@RequestParam(value = "teacherId") String teacherId,
 			@RequestParam(value = "schoolClassSchool") String schoolClassSchool, Model model, HttpSession session) {
 
 
 		SchoolClass schoolClass = schoolClassRepository.findById(Long.valueOf(schoolClassId)).get();
+		Teacher teacher = teacherRepository.findById(Long.valueOf(teacherId)).get();
 		schoolClass.setStartYear(Integer.valueOf(schoolClassStartYear));
 		schoolClass.setCurrentYear(Integer.valueOf(schoolClassCurrentYear));
 		schoolClass.setProfile(schoolClassProfile);
@@ -108,6 +111,7 @@ public class SchoolClassesController {
 		School school = schoolRepository.findById(Long.valueOf(schoolClassSchool)).get();
 
 		schoolClass.setSchool(school);
+		schoolClass.setTeacher(teacher);
 		// update
 		schoolClassRepository.save(schoolClass);
 		model.addAttribute("schoolClasses", schoolClassRepository.findAll());
