@@ -32,7 +32,6 @@ public class GradesController {
         model.addAttribute("gradesList", gradeRepository.findAll());
         return "gradeList";
     }
-
     @RequestMapping(value = "/AddGrade")
     public String displayAddSchoolClassForm(Model model, HttpSession session) {
         model.addAttribute("gradesList", gradeRepository.findAll());
