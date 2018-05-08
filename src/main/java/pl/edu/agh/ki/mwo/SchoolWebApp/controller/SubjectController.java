@@ -54,7 +54,7 @@ public class SubjectController {
 	@RequestMapping(value = "/CreateSubject", method = RequestMethod.POST)
 	public String createSchoolClass
 			(@RequestParam(value = "subjectName", required = false) String subjectName,
-			@RequestParam(value = "teacher", required = false) String teacherId,
+			@RequestParam(value = "teacherId", required = false) String teacherId,
 			Model model) {
 		Subjects subjects = new Subjects();
 		subjects.setName(subjectName);
