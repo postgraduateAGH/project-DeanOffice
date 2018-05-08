@@ -14,36 +14,36 @@
 			<table >
 				<tr>
 					<th>Id</th>
-					<th>Nazwa</th>
-					<th>Nauczyciele</th>
-					<th>klasy</th>
+					<th>Ocena</th>
+					<th>Student</th>
+					<th>Przedmiot</th>
 					<th colspan="2">Akcje</th>
 				</tr>
-				<tr th:each="subject: ${subjectsList}">
-					<td><span th:text="${subject.id}" /></td>
-					<td><span th:text="${subject.name}" /></td>
-					<td th:if="${subject.teacher != null}"><span th:text="${subject.teacher.name}+' '+${subject.teacher.surname}" /></td>
-					<td th:if="${subject.teacher == null}">NIE MA</td>
-					<td th:if="${subject.schoolClass != null}"><span th:text="${subject.schoolClass.profile}" /></td>
-					<td th:if="${subject.schoolClass == null}">NIE MA</td>
+				<tr th:each="grade: ${gradesList}">
+					<td><span th:text="${grade.id}" /></td>
+					<td><span th:text="${grade.grade}" /></td>
+					<td th:if="${grade.student != null}"><span th:text="${grade.student.name}+' '+${grade.student.surname}" /></td>
+					<td th:if="${grade.student == null}">NIE MA</td>
+					<td th:if="${grade.subjects != null}"><span th:text="${grade.subjects.name}" /></td>
+					<td th:if="${grade.subjects == null}">NIE MA</td>
 					<td>
-						<form action="DeleteSubject" method="POST">
-							<input type="hidden" name="subjectId"
-								   th:value="${subject.id}" />
+						<form action="DeleteGrade" method="POST">
+							<input type="hidden" name="gradeId"
+								   th:value="${grade.id}" />
 							<input class="btn btn-primary" type=submit value="Skasuj" style="width:100%">
 						</form>
 					</td>
 					<td>
-						<form action="ShowUpdateSubjectForm" method="POST">
-							<input type="hidden" name="subjectId"
-								   th:value="${subject.id}" />
+						<form action="ShowUpdateGradeForm" method="POST">
+							<input type="hidden" name="gradeId"
+								   th:value="${grade.id}" />
 							<input class="btn btn-primary" type=submit value="Edytuj" style="width:100%">
 						</form>
 					</td>
 				</tr>
 			</table>
 			<br />
-			<form action="AddSubject" method="POST">
+			<form action="AddGrade" method="POST">
 				<button class="button"  type="submit">Dodaj</button>
 			</form>
 		</div>

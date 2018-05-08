@@ -15,16 +15,16 @@
 	<div layout:fragment="content" align="center">
 		<div th:include="menuFragment"></div>
     	<br/><br/>
-	   			<form action="CreateSubject" class="w3-container w3-card-4 w3-light-grey" method="POST">
+	   			<form action="CreateGrade" class="w3-container w3-card-4 w3-light-grey" method="POST">
 					<table>
-						<tr><td>Nazwa:</td><td><input type="text" name="subjectName" /></td></tr>
-						<tr><td>nauczyciel:</td><td><select class="form-control" name="teacher" id="teacher">
+						<tr><td>Ocena:</td><td><input type="text" name="gradeName" /></td></tr>
+						<tr><td>Student:</td><td><select class="form-control" name="studentId" id="studentId">
 							<option value="-1">---</option>
-							<option th:each="teacher: ${teachers}" th:value="${teacher.id}" th:text="${teacher.name} + ', ' + ${teacher.surname}"></option>
+							<option th:each="student: ${students}" th:value="${student.id}" th:text="${student.name} + ', ' + ${student.surname}"></option>
 						</select></td></tr>
-						<tr><td>klasa:</td><td><select class="form-control" name="schoolClassId" id="schoolClassId">
+						<tr><td>Przedmiot:</td><td><select class="form-control" name="subjectId" id="subjectId">
 							<option value="-1">---</option>
-							<option th:each="schoolClass: ${schoolClasses}" th:value="${schoolClass.id}" th:text="${schoolClass.profile}"></option>
+							<option th:each="subject: ${subjects}" th:value="${subject.id}" th:text="${subject.name}"></option>
 						</select></td></tr>
 					</table><br/><BR/>
 					<button class="button"  type="submit">Utwórz</button>
