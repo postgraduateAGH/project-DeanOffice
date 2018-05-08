@@ -21,8 +21,10 @@ public class GradesController {
 
     @Autowired
     private StudentRepository studentRepository;
+
     @Autowired
     private GradesRepository gradeRepository;
+
     @Autowired
     private SubjectRepository subjectRepository;
 
@@ -32,6 +34,7 @@ public class GradesController {
         model.addAttribute("gradesList", gradeRepository.findAll());
         return "gradeList";
     }
+
     @RequestMapping(value = "/AddGrade")
     public String displayAddSchoolClassForm(Model model, HttpSession session) {
         model.addAttribute("gradesList", gradeRepository.findAll());
@@ -41,8 +44,7 @@ public class GradesController {
     }
 
     @RequestMapping(value = "/DeleteGrade", method = RequestMethod.POST)
-    public String deletegrade(@RequestParam(value = "gradeId", required = false) String gradeId,
-            Model model) {
+    public String deletegrade(@RequestParam(value = "gradeId", required = false) String gradeId, Model model) {
 
         gradeRepository.deleteById(Long.valueOf(gradeId));
         model.addAttribute("gradesList", gradeRepository.findAll());
@@ -51,11 +53,9 @@ public class GradesController {
     }
 
     @RequestMapping(value = "/CreateGrade", method = RequestMethod.POST)
-    public String createSchoolClass
-            (@RequestParam(value = "gradeName", required = false) String gradeName,
-                    @RequestParam(value = "studentId", required = false) String studentId,
-                    @RequestParam(value = "subjectId", required = false) String subjectId,
-                    Model model) {
+    public String createSchoolClass(@RequestParam(value = "gradeName", required = false) String gradeName,
+            @RequestParam(value = "studentId", required = false) String studentId, @RequestParam(value = "subjectId", required = false) String subjectId,
+            Model model) {
         Grades grades = new Grades();
         grades.setGrade(Double.valueOf(gradeName));
         Student student = studentRepository.findById(Long.valueOf(studentId)).get();
@@ -70,8 +70,7 @@ public class GradesController {
     }
 
     @RequestMapping(value = "/ShowUpdateGradeForm")
-    public String showUpdategradeForm(@RequestParam(value = "gradeId") String gradeId, Model model,
-            HttpSession session) {
+    public String showUpdategradeForm(@RequestParam(value = "gradeId") String gradeId, Model model, HttpSession session) {
 
         Grades grades = gradeRepository.findById(Long.valueOf(gradeId)).get();
         model.addAttribute("grades", grades);
@@ -79,16 +78,13 @@ public class GradesController {
         model.addAttribute("students", studentRepository.findAll());
         model.addAttribute("subjects", subjectRepository.findAll());
 
-
         return "gradeUpdateForm";
     }
 
     @RequestMapping(value = "/UpdateGrade", method = RequestMethod.POST)
-    public String updategrade(
-            @RequestParam(value = "gradeId") String gradeId,
-            @RequestParam(value = "gradeName", required = false) String gradeName,
-            @RequestParam(value = "studentId", required = false) String studentId,
-            @RequestParam(value = "subjectId", required = false) String subjectId, Model model, HttpSession session) {
+    public String updategrade(@RequestParam(value = "gradeId") String gradeId, @RequestParam(value = "gradeName", required = false) String gradeName,
+            @RequestParam(value = "studentId", required = false) String studentId, @RequestParam(value = "subjectId", required = false) String subjectId,
+            Model model, HttpSession session) {
 
         Grades grades = gradeRepository.findById(Long.valueOf(gradeId)).get();
         grades.setGrade(Double.valueOf(gradeName));
@@ -103,7 +99,5 @@ public class GradesController {
 
         return "gradeList";
     }
-
-
 
 }

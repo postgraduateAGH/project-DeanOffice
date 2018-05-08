@@ -9,115 +9,111 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import pl.edu.agh.ki.mwo.SchoolWebApp.entity.School;
+import pl.edu.agh.ki.mwo.SchoolWebApp.entity.SchoolClass;
+import pl.edu.agh.ki.mwo.SchoolWebApp.entity.Teacher;
 import pl.edu.agh.ki.mwo.SchoolWebApp.repository.SchoolClassRepository;
 import pl.edu.agh.ki.mwo.SchoolWebApp.repository.SchoolRepository;
 import pl.edu.agh.ki.mwo.SchoolWebApp.repository.TeacherRepository;
-import pl.edu.agh.ki.mwo.SchoolWebApp.entity.School;
-import pl.edu.agh.ki.mwo.SchoolWebApp.entity.SchoolClass;
+
 //import pl.edu.agh.ki.mwo.persistence.DatabaseConnector;
-import pl.edu.agh.ki.mwo.SchoolWebApp.entity.Teacher;
 
 @Controller
 public class SchoolClassesController {
 
-	@Autowired
-	private SchoolRepository schoolRepository;
-	@Autowired
-	private SchoolClassRepository schoolClassRepository;
-	@Autowired
-	private TeacherRepository teacherRepository;
+    @Autowired
+    private SchoolRepository schoolRepository;
 
-	@RequestMapping(value = "/SchoolClasses")
-	public String listSchoolClass(Model model, HttpSession session) {
-		 
-		model.addAttribute("schoolClasses", schoolClassRepository.findAll());
+    @Autowired
+    private SchoolClassRepository schoolClassRepository;
 
-		return "schoolClassesList";
-	}
+    @Autowired
+    private TeacherRepository teacherRepository;
 
-	@RequestMapping(value = "/AddSchoolClass")
-	public String displayAddSchoolClassForm(Model model, HttpSession session) {
+    @RequestMapping(value = "/SchoolClasses")
+    public String listSchoolClass(Model model, HttpSession session) {
 
-		model.addAttribute("schools", schoolRepository.findAll());
-		model.addAttribute("teachers", teacherRepository.findAll());
+        model.addAttribute("schoolClasses", schoolClassRepository.findAll());
 
-		return "schoolClassForm";
-	}
+        return "schoolClassesList";
+    }
 
-	@RequestMapping(value = "/CreateSchoolClass", method = RequestMethod.POST)
-	public String createSchoolClass(@RequestParam(value = "schoolClassStartYear", required = false) String startYear,
-			@RequestParam(value = "schoolClassCurrentYear", required = false) String currentYear,
-			@RequestParam(value = "schoolClassProfile", required = false) String profile,
-			@RequestParam(value = "schoolClassSchool", required = false) String schoolId, 
-			@RequestParam(value = "schoolClassSchool", required = false) String teacherId,
-			Model model,
-			HttpSession session) {
+    @RequestMapping(value = "/AddSchoolClass")
+    public String displayAddSchoolClassForm(Model model, HttpSession session) {
 
-		SchoolClass schoolClass = new SchoolClass();
-		schoolClass.setStartYear(Integer.valueOf(startYear));
-		schoolClass.setCurrentYear(Integer.valueOf(currentYear));
-		schoolClass.setProfile(profile);
-		School school = schoolRepository.findById(Long.valueOf(schoolId)).get();
-		Teacher teacher = teacherRepository.findById(Long.valueOf(teacherId)).get();
-		schoolClass.setSchool(school);
-		schoolClass.setTeacher(teacher);
+        model.addAttribute("schools", schoolRepository.findAll());
+        model.addAttribute("teachers", teacherRepository.findAll());
 
-		schoolClassRepository.save(schoolClass);
-		model.addAttribute("schoolClasses", schoolClassRepository.findAll());
-		model.addAttribute("message", "Nowa klasa została dodana");
+        return "schoolClassForm";
+    }
 
-		return "schoolClassesList";
-	}
+    @RequestMapping(value = "/CreateSchoolClass", method = RequestMethod.POST)
+    public String createSchoolClass(@RequestParam(value = "schoolClassStartYear", required = false) String startYear,
+            @RequestParam(value = "schoolClassCurrentYear", required = false) String currentYear,
+            @RequestParam(value = "schoolClassProfile", required = false) String profile,
+            @RequestParam(value = "schoolClassSchool", required = false) String schoolId,
+            @RequestParam(value = "schoolClassSchool", required = false) String teacherId, Model model, HttpSession session) {
 
-	@RequestMapping(value = "/DeleteSchoolClass", method = RequestMethod.POST)
-	public String deleteSchoolClass(@RequestParam(value = "schoolClassId", required = false) String schoolClassId,
-			Model model, HttpSession session) {
+        SchoolClass schoolClass = new SchoolClass();
+        schoolClass.setStartYear(Integer.valueOf(startYear));
+        schoolClass.setCurrentYear(Integer.valueOf(currentYear));
+        schoolClass.setProfile(profile);
+        School school = schoolRepository.findById(Long.valueOf(schoolId)).get();
+        Teacher teacher = teacherRepository.findById(Long.valueOf(teacherId)).get();
+        schoolClass.setSchool(school);
+        schoolClass.setTeacher(teacher);
 
-		schoolClassRepository.deleteById(Long.valueOf(schoolClassId));
-		model.addAttribute("schoolClasses", schoolClassRepository.findAll());
-		model.addAttribute("message", "Klasa została usunięta");
+        schoolClassRepository.save(schoolClass);
+        model.addAttribute("schoolClasses", schoolClassRepository.findAll());
+        model.addAttribute("message", "Nowa klasa została dodana");
 
-		return "schoolClassesList";
-	}
+        return "schoolClassesList";
+    }
 
-	@RequestMapping(value = "/ShowUpdateSchoolClassForm")
-	public String showUpdateSchoolClassForm(@RequestParam(value = "schoolClassId") String schoolClassId, Model model,
-			HttpSession session) {
+    @RequestMapping(value = "/DeleteSchoolClass", method = RequestMethod.POST)
+    public String deleteSchoolClass(@RequestParam(value = "schoolClassId", required = false) String schoolClassId, Model model, HttpSession session) {
 
-		SchoolClass schoolClass = schoolClassRepository.findById(Long.valueOf(schoolClassId)).get();
-		model.addAttribute("schoolClass", schoolClass);
-		model.addAttribute("schools", schoolRepository.findAll());
-		model.addAttribute("teachers", teacherRepository.findAll());
+        schoolClassRepository.deleteById(Long.valueOf(schoolClassId));
+        model.addAttribute("schoolClasses", schoolClassRepository.findAll());
+        model.addAttribute("message", "Klasa została usunięta");
 
-		return "schoolClassUpdateForm";
-	}
+        return "schoolClassesList";
+    }
 
-	@RequestMapping(value = "/UpdateSchoolClass", method = RequestMethod.POST)
-	public String updateSchoolClass(
-			@RequestParam(value = "schoolClassStartYear", required = false) String schoolClassStartYear,
-			@RequestParam(value = "schoolClassCurrentYear", required = false) String schoolClassCurrentYear,
-			@RequestParam(value = "schoolClassProfile") String schoolClassProfile,
-			@RequestParam(value = "schoolClassId") String schoolClassId,
-			@RequestParam(value = "teacherId") String teacherId,
-			@RequestParam(value = "schoolClassSchool") String schoolClassSchool, Model model, HttpSession session) {
+    @RequestMapping(value = "/ShowUpdateSchoolClassForm")
+    public String showUpdateSchoolClassForm(@RequestParam(value = "schoolClassId") String schoolClassId, Model model, HttpSession session) {
 
+        SchoolClass schoolClass = schoolClassRepository.findById(Long.valueOf(schoolClassId)).get();
+        model.addAttribute("schoolClass", schoolClass);
+        model.addAttribute("schools", schoolRepository.findAll());
+        model.addAttribute("teachers", teacherRepository.findAll());
 
-		SchoolClass schoolClass = schoolClassRepository.findById(Long.valueOf(schoolClassId)).get();
-		Teacher teacher = teacherRepository.findById(Long.valueOf(teacherId)).get();
-		schoolClass.setStartYear(Integer.valueOf(schoolClassStartYear));
-		schoolClass.setCurrentYear(Integer.valueOf(schoolClassCurrentYear));
-		schoolClass.setProfile(schoolClassProfile);
+        return "schoolClassUpdateForm";
+    }
 
-		School school = schoolRepository.findById(Long.valueOf(schoolClassSchool)).get();
+    @RequestMapping(value = "/UpdateSchoolClass", method = RequestMethod.POST)
+    public String updateSchoolClass(@RequestParam(value = "schoolClassStartYear", required = false) String schoolClassStartYear,
+            @RequestParam(value = "schoolClassCurrentYear", required = false) String schoolClassCurrentYear,
+            @RequestParam(value = "schoolClassProfile") String schoolClassProfile, @RequestParam(value = "schoolClassId") String schoolClassId,
+            @RequestParam(value = "teacherId") String teacherId, @RequestParam(value = "schoolClassSchool") String schoolClassSchool, Model model,
+            HttpSession session) {
 
-		schoolClass.setSchool(school);
-		schoolClass.setTeacher(teacher);
-		// update
-		schoolClassRepository.save(schoolClass);
-		model.addAttribute("schoolClasses", schoolClassRepository.findAll());
-		model.addAttribute("message", "Klasa zaktualizowana");
+        SchoolClass schoolClass = schoolClassRepository.findById(Long.valueOf(schoolClassId)).get();
+        Teacher teacher = teacherRepository.findById(Long.valueOf(teacherId)).get();
+        schoolClass.setStartYear(Integer.valueOf(schoolClassStartYear));
+        schoolClass.setCurrentYear(Integer.valueOf(schoolClassCurrentYear));
+        schoolClass.setProfile(schoolClassProfile);
 
-		return "schoolClassesList";
-	}
+        School school = schoolRepository.findById(Long.valueOf(schoolClassSchool)).get();
+
+        schoolClass.setSchool(school);
+        schoolClass.setTeacher(teacher);
+        // update
+        schoolClassRepository.save(schoolClass);
+        model.addAttribute("schoolClasses", schoolClassRepository.findAll());
+        model.addAttribute("message", "Klasa zaktualizowana");
+
+        return "schoolClassesList";
+    }
 
 }

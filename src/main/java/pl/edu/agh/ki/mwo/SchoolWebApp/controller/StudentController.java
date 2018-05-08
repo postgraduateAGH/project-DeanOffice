@@ -74,7 +74,7 @@ public class StudentController {
 
         Student student = studentRepository.findById(studentId).get();
         model.addAttribute("student", student);
-        if (schoolClassRepository.findAll() != null){
+        if (schoolClassRepository.findAll() != null) {
             model.addAttribute("schoolClasses", schoolClassRepository.findAll());
         }
 
@@ -85,8 +85,6 @@ public class StudentController {
     public String updateSchoolClass(@RequestParam(value = "studentName", required = false) String studentName,
             @RequestParam(value = "studentSurname", required = false) String studentSurname, @RequestParam(value = "studentPesel") String studentPesel,
             @RequestParam(value = "studentId") Long studentId, @RequestParam(value = "studentClass") Long studentClass, Model model, HttpSession session) {
-
-
 
         Student student = studentRepository.findById(studentId).get();
         student.setName(studentName);
