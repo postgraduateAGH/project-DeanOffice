@@ -28,7 +28,6 @@ public class TeacherController {
         model.addAttribute("teachers", teacherRepository.findAll());
         return "teachersList";
     }
-
     @RequestMapping(value = "/DeleteTeacher", method = RequestMethod.POST)
     public String deleteTeacher(@RequestParam(value = "teacherId", required = false) String teacherId, Model model, HttpSession session) {
 
