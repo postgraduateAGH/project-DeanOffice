@@ -83,7 +83,7 @@ public class SubjectController {
 	public String updateSubject(
 			@RequestParam(value = "subjectId") String subjectId,
 			@RequestParam(value = "subjectName", required = false) String subjectName,
-			@RequestParam(value = "teacher", required = false) String teacherId
+			@RequestParam(value = "teacherId", required = false) String teacherId
 			, Model model, HttpSession session) {
 
 
