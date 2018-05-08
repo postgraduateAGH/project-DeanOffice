@@ -38,6 +38,18 @@
 								th:text="${t.name} + ', ' + ${t.surname}"></option>
 					</select></td>
 				</tr>
+				<tr>
+					<td>klasa:</td>
+					<td><select class="form-control" name="schoolClassId" id="schoolClassId">
+
+						<option th:if="${subjects.schoolClass != null}" selected="selected" th:value="${subjects.schoolClass.id}"
+								th:text="${subjects.schoolClass.profile}"></option>
+
+						<option th:each="schoolClass: ${schoolClasses}" th:value="${schoolClass.id}"
+								th:text="${schoolClass.profile}"></option>
+					</select></td>
+				</tr>
+
 
 
 

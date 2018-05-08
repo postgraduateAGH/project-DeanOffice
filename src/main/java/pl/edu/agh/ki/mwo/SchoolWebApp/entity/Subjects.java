@@ -16,6 +16,28 @@ public class Subjects implements java.io.Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column
+    private String name;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @NotFound(action = NotFoundAction.IGNORE)
+    @JoinColumn(name = "teacher_id",nullable=true)
+    private Teacher teacher;
+
+    public SchoolClass getSchoolClass() {
+        return schoolClass;
+    }
+
+    public void setSchoolClass(SchoolClass schoolClass) {
+        this.schoolClass = schoolClass;
+    }
+
+    @ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE, CascadeType.PERSIST,
+            CascadeType.REFRESH })
+    @NotFound(action = NotFoundAction.IGNORE)
+    @JoinColumn(name = "class_id",nullable=true)
+    private SchoolClass schoolClass;
+
     public String getName() {
         return name;
     }
@@ -25,17 +47,12 @@ public class Subjects implements java.io.Serializable {
     }
 
     public Subjects() {
-
     }
 
 
-    @Column
-    private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @NotFound(action = NotFoundAction.IGNORE)
-    @JoinColumn(name = "teacher_id",nullable=true)
-    private Teacher teacher;
+
+
 
     public Teacher getTeacher() {
         return teacher;

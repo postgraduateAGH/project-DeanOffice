@@ -26,6 +26,8 @@ public class SubjectController {
 	private TeacherRepository teacherRepository;
 	@Autowired
 	private SubjectRepository subjectRepository;
+	@Autowired
+	private SchoolClassRepository schoolClassRepository;
 
 	@RequestMapping(value = "/Subjects")
 	public String subjectList(Model model) {
@@ -38,6 +40,7 @@ public class SubjectController {
 	public String displayAddSchoolClassForm(Model model, HttpSession session) {
 		model.addAttribute("subjectsList", subjectRepository.findAll());
 		model.addAttribute("teachers", teacherRepository.findAll());
+		model.addAttribute("schoolClasses", schoolClassRepository.findAll());
 		return "SubjectForm";
 	}
 
@@ -54,12 +57,15 @@ public class SubjectController {
 	@RequestMapping(value = "/CreateSubject", method = RequestMethod.POST)
 	public String createSchoolClass
 			(@RequestParam(value = "subjectName", required = false) String subjectName,
-			@RequestParam(value = "teacherId", required = false) String teacherId,
+			@RequestParam(value = "teacher", required = false) String teacherId,
+			@RequestParam(value = "schoolClassId", required = false) String schoolClassId,
 			Model model) {
 		Subjects subjects = new Subjects();
 		subjects.setName(subjectName);
 		Teacher teacher = teacherRepository.findById(Long.valueOf(teacherId)).get();
+		SchoolClass schoolClass = schoolClassRepository.findById(Long.valueOf(schoolClassId)).get();
 		subjects.setTeacher(teacher);
+		subjects.setSchoolClass(schoolClass);
 
 		subjectRepository.save(subjects);
 		model.addAttribute("subjectsList", subjectRepository.findAll());
@@ -75,6 +81,8 @@ public class SubjectController {
 		model.addAttribute("subjects", subjects);
 		model.addAttribute("subject", subjectRepository.findAll());
 		model.addAttribute("teachers", teacherRepository.findAll());
+		model.addAttribute("schoolClasses", schoolClassRepository.findAll());
+
 
 		return "subjectUpdateForm";
 	}
@@ -83,14 +91,17 @@ public class SubjectController {
 	public String updateSubject(
 			@RequestParam(value = "subjectId") String subjectId,
 			@RequestParam(value = "subjectName", required = false) String subjectName,
-			@RequestParam(value = "teacherId", required = false) String teacherId
-			, Model model, HttpSession session) {
+			@RequestParam(value = "teacherId", required = false) String teacherId,
+			@RequestParam(value = "schoolClassId", required = false) String schoolClassId, Model model, HttpSession session) {
 
+		SchoolClass schoolClass = schoolClassRepository.findById(Long.valueOf(schoolClassId)).get();
 
 		Teacher teacher = teacherRepository.findById(Long.valueOf(teacherId)).get();
 		Subjects subjects = subjectRepository.findById(Long.valueOf(subjectId)).get();
 		subjects.setTeacher(teacher);
 		subjects.setName(subjectName);
+		subjects.setSchoolClass(schoolClass);
+
 
 		// update
 		subjectRepository.save(subjects);
