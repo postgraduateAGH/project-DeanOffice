@@ -22,7 +22,7 @@
 				<tr th:each="presence: ${presencesList}">
 					<td><span th:text="${presence.dateField}" /></td>
 					<td><span th:text="${presence.student.name}+' '+${presence.student.surname}" /></td>
-					<td><span th:text="${presence.subjects.name}" /></td>
+					<td><span th:text="${presence.subject.name}" /></td>
 					<td><span th:text="${presence.presence}" /></td>
 					<td>
 						<form action="DeletePresence" method="POST">

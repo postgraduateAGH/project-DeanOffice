@@ -1,5 +1,6 @@
 package pl.edu.agh.ki.mwo.SchoolWebApp.entity;
 
+import java.sql.Date;
 import java.util.Calendar;
 
 import javax.persistence.CascadeType;
@@ -35,10 +36,18 @@ public class Presence implements java.io.Serializable {
 	private Student student;
 
 	@Column(name = "date")
-	private Calendar dateField;
+	private Date dateField;
 
 	@Column(name = "presence")
 	private int presence;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	public int getPresence() {
 		return presence;
@@ -64,11 +73,11 @@ public class Presence implements java.io.Serializable {
 		this.student = student;
 	}
 
-	public Calendar getDateField() {
+	public Date getDateField() {
 		return dateField;
 	}
 
-	public void setDateField(Calendar dateField) {
+	public void setDateField(Date dateField) {
 		this.dateField = dateField;
 	}
 
@@ -77,7 +86,7 @@ public class Presence implements java.io.Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Presence(Subjects subject, Student student, Calendar dateField) {
+	public Presence(Subjects subject, Student student, Date dateField) {
 		super();
 		this.subject = subject;
 		this.student = student;
