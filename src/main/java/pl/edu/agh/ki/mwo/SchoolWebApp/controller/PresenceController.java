@@ -44,16 +44,16 @@ public class PresenceController {
         model.addAttribute("schoolClasses", schoolClassRepository.findAll());
         return "SubjectForm";
     }
+*/
+    @RequestMapping(value = "/DeletePresence", method = RequestMethod.POST)
+    public String deletePresence(@RequestParam(value = "presenceId", required = false) String presenceId, Model model) {
 
-    @RequestMapping(value = "/DeleteSubject", method = RequestMethod.POST)
-    public String deleteSubject(@RequestParam(value = "subjectId", required = false) String subjectId, Model model) {
+        presenceRepository.deleteById(Long.valueOf(presenceId));
+        model.addAttribute("presencesList", presenceRepository.findAll());
 
-        subjectRepository.deleteById(Long.valueOf(subjectId));
-        model.addAttribute("subjectsList", subjectRepository.findAll());
-
-        return "subjectList";
+        return "presencesList";
     }
-
+/*
     @RequestMapping(value = "/CreateSubject", method = RequestMethod.POST)
     public String createSchoolClass(@RequestParam(value = "subjectName", required = false) String subjectName,
             @RequestParam(value = "teacher", required = false) String teacherId, @RequestParam(value = "schoolClassId", required = false) String schoolClassId,
