@@ -2,6 +2,7 @@ package pl.edu.agh.ki.mwo.SchoolWebApp.entity;
 
 import java.util.Calendar;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,12 +22,31 @@ import org.hibernate.annotations.NotFoundAction;
 @Table(name = "presences")
 public class Presence implements java.io.Serializable {
 
-	private Subjects subject;
-	private Student student;
-	/*@Column(name = "date")
-	@Temporal(TemporalType.DATE)*/
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 	
+	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@JoinColumn(name = "subject_id", nullable = true)
+	private Subjects subject;
+
+	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@JoinColumn(name = "student_id", nullable = true)
+	private Student student;
+
+	@Column(name = "date")
 	private Calendar dateField;
+
+	@Column(name = "presence")
+	private int presence;
+
+	public int getPresence() {
+		return presence;
+	}
+
+	public void setPresence(int presence) {
+		this.presence = presence;
+	}
 
 	public Subjects getSubject() {
 		return subject;
@@ -51,8 +71,17 @@ public class Presence implements java.io.Serializable {
 	public void setDateField(Calendar dateField) {
 		this.dateField = dateField;
 	}
-	
-	
-	
-    
+
+	public Presence() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Presence(Subjects subject, Student student, Calendar dateField) {
+		super();
+		this.subject = subject;
+		this.student = student;
+		this.dateField = dateField;
+	}
+
 }

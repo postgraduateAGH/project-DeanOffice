@@ -1,5 +1,8 @@
 package pl.edu.agh.ki.mwo.SchoolWebApp.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.*;
 
 @SuppressWarnings("serial")
