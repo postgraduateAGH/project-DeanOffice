@@ -1,0 +1,69 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link th:href="@{/css/main.css}" href="/static/css/main.css"
+	rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+	<div class="container">
+		<div layout:fragment="content" align="center">
+			<div th:include="menuFragment"></div>
+			<br /> <br />
+			<form action="UpdateGrade"
+				class="w3-container w3-card-4 w3-light-grey" method="POST">
+				<table>
+					<tr>
+						<td>Obecnosc</td>
+						<td><input type="text" name="presence"
+							th:value="${presence.presence}" /> <input type="hidden"
+							name="gradeId" th:value="${presence.id}" /></td>
+
+					</tr>
+					<tr>
+						<td>Student:</td>
+						<td><select class="form-control" name="studentId"
+							id="studentId">
+
+								<option selected="selected" th:value="${presence.student.id}"
+									th:text="${presence.student.name} + ', ' + ${presence.student.surname}"></option>
+
+								<option th:each="s: ${students}" th:value="${s.id}"
+									th:text="${s.name} + ', ' + ${s.surname}"></option>
+						</select></td>
+					</tr>
+					<tr>
+						<td>Przedmiot:</td>
+						<td><select class="form-control" name="subjectId"
+							id="subjectId">
+
+								<option selected="selected" th:value="${presence.subject.id}"
+									th:text="${presence.subject.name}"></option>
+
+								<option th:each="subject: ${subjects}" th:value="${subject.id}"
+									th:text="${subject.name}"></option>
+						</select></td>
+					</tr>
+					<tr>
+						<td>Data</td>
+						<td><input type="text" name="date"
+							th:value="${presence.dateField}" />
+						</td>
+
+					</tr>
+
+
+
+
+				</table>
+				<button class="button" type="submit">Zapisz</button>
+			</form>
+		</div>
+</body>
+</html>
+
+

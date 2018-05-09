@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import pl.edu.agh.ki.mwo.SchoolWebApp.entity.Presence;
 import pl.edu.agh.ki.mwo.SchoolWebApp.entity.SchoolClass;
 import pl.edu.agh.ki.mwo.SchoolWebApp.entity.Subjects;
 import pl.edu.agh.ki.mwo.SchoolWebApp.entity.Teacher;
@@ -70,19 +71,18 @@ public class PresenceController {
 
         return "subjectList";
     }
+*/
+    @RequestMapping(value = "/ShowUpdatePresenceForm")
+    public String showUpdatePresenceForm(@RequestParam(value = "presenceId") String presenceId, Model model, HttpSession session) {
 
-    @RequestMapping(value = "/ShowUpdateSubjectForm")
-    public String showUpdateSubjectForm(@RequestParam(value = "subjectId") String subjectId, Model model, HttpSession session) {
+        Presence presence = presenceRepository.findById(Long.valueOf(presenceId)).get();
+        model.addAttribute("presence", presence);
+        model.addAttribute("subjects", subjectRepository.findAll());
+        model.addAttribute("students", studentRepository.findAll());
 
-        Subjects subjects = subjectRepository.findById(Long.valueOf(subjectId)).get();
-        model.addAttribute("subjects", subjects);
-        model.addAttribute("subject", subjectRepository.findAll());
-        model.addAttribute("teachers", teacherRepository.findAll());
-        model.addAttribute("schoolClasses", schoolClassRepository.findAll());
-
-        return "subjectUpdateForm";
+        return "presenceUpdateForm";
     }
-
+/*
     @RequestMapping(value = "/UpdateSubject", method = RequestMethod.POST)
     public String updateSubject(@RequestParam(value = "subjectId") String subjectId, @RequestParam(value = "subjectName", required = false) String subjectName,
             @RequestParam(value = "teacherId", required = false) String teacherId,
