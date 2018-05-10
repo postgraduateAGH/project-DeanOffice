@@ -1,5 +1,9 @@
 package pl.edu.agh.ki.mwo.SchoolWebApp.controller;
 
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.edu.agh.ki.mwo.SchoolWebApp.entity.Presence;
 import pl.edu.agh.ki.mwo.SchoolWebApp.entity.SchoolClass;
+import pl.edu.agh.ki.mwo.SchoolWebApp.entity.Student;
 import pl.edu.agh.ki.mwo.SchoolWebApp.entity.Subjects;
 import pl.edu.agh.ki.mwo.SchoolWebApp.entity.Teacher;
 import pl.edu.agh.ki.mwo.SchoolWebApp.repository.PresenceRepository;
@@ -22,85 +27,110 @@ import pl.edu.agh.ki.mwo.SchoolWebApp.repository.TeacherRepository;
 @Controller
 public class PresenceController {
 
-    @Autowired
-    private StudentRepository studentRepository;
+	@Autowired
+	private StudentRepository studentRepository;
 
-    @Autowired
-    private SubjectRepository subjectRepository;
+	@Autowired
+	private SubjectRepository subjectRepository;
 
-    @Autowired
-    private PresenceRepository presenceRepository;
+	@Autowired
+	private PresenceRepository presenceRepository;
 
-    @RequestMapping(value = "/Presences")
-    public String subjectList(Model model) {
+	@RequestMapping(value = "/Presences")
+	public String subjectList(Model model) {
 
-        model.addAttribute("presencesList", presenceRepository.findAll());
-        return "presencesList";
-    }
+		model.addAttribute("presencesList", presenceRepository.findAll());
+		return "presencesList";
+	}
 
-/*    @RequestMapping(value = "/AddSubject")
-    public String displayAddSchoolClassForm(Model model, HttpSession session) {
-        model.addAttribute("subjectsList", subjectRepository.findAll());
-        model.addAttribute("teachers", teacherRepository.findAll());
-        model.addAttribute("schoolClasses", schoolClassRepository.findAll());
-        return "SubjectForm";
-    }
-*/
-    @RequestMapping(value = "/DeletePresence", method = RequestMethod.POST)
-    public String deletePresence(@RequestParam(value = "presenceId", required = false) String presenceId, Model model) {
+	@RequestMapping(value = "/AddPresence")
+	public String displayAddSchoolClassForm(Model model, HttpSession session) {
+		model.addAttribute("subjectsList", subjectRepository.findAll());
+		model.addAttribute("studentsList", studentRepository.findAll());
+		return "presenceForm";
+	}
 
-        presenceRepository.deleteById(Long.valueOf(presenceId));
-        model.addAttribute("presencesList", presenceRepository.findAll());
+	@RequestMapping(value = "/DeletePresence", method = RequestMethod.POST)
+	public String deletePresence(@RequestParam(value = "presenceId", required = false) String presenceId, Model model) {
 
-        return "presencesList";
-    }
-/*
-    @RequestMapping(value = "/CreateSubject", method = RequestMethod.POST)
-    public String createSchoolClass(@RequestParam(value = "subjectName", required = false) String subjectName,
-            @RequestParam(value = "teacher", required = false) String teacherId, @RequestParam(value = "schoolClassId", required = false) String schoolClassId,
-            Model model) {
-        Subjects subjects = new Subjects();
-        subjects.setName(subjectName);
-        Teacher teacher = teacherRepository.findById(Long.valueOf(teacherId)).get();
-        SchoolClass schoolClass = schoolClassRepository.findById(Long.valueOf(schoolClassId)).get();
-        subjects.setTeacher(teacher);
-        subjects.setSchoolClass(schoolClass);
+		presenceRepository.deleteById(Long.valueOf(presenceId));
+		model.addAttribute("presencesList", presenceRepository.findAll());
 
-        subjectRepository.save(subjects);
-        model.addAttribute("subjectsList", subjectRepository.findAll());
+		return "presencesList";
+	}
 
-        return "subjectList";
-    }
-*/
-    @RequestMapping(value = "/ShowUpdatePresenceForm")
-    public String showUpdatePresenceForm(@RequestParam(value = "presenceId") String presenceId, Model model, HttpSession session) {
+	@RequestMapping(value = "/CreatePresence", method = RequestMethod.POST)
+	public String createPresence(@RequestParam(value = "presence", required = false) String presence,
+		@RequestParam(value = "studentId", required = false) String studentId,
+		@RequestParam(value = "date", required = false) String date,
+		@RequestParam(value = "subjectId", required = false) String subjectId, Model model) {
+		Presence new_presence=new Presence();
 
-        Presence presence = presenceRepository.findById(Long.valueOf(presenceId)).get();
-        model.addAttribute("presence", presence);
-        model.addAttribute("subjects", subjectRepository.findAll());
-        model.addAttribute("students", studentRepository.findAll());
+		Student student = studentRepository.findById(Long.valueOf(studentId)).get();
+		Subjects subject = subjectRepository.findById(Long.valueOf(subjectId)).get();
+		new_presence.setStudent(student);
+		new_presence.setSubject(subject);
+		new_presence.setPresence(Integer.valueOf(presence));
 
-        return "presenceUpdateForm";
-    }
-/*
-    @RequestMapping(value = "/UpdateSubject", method = RequestMethod.POST)
-    public String updateSubject(@RequestParam(value = "subjectId") String subjectId, @RequestParam(value = "subjectName", required = false) String subjectName,
-            @RequestParam(value = "teacherId", required = false) String teacherId,
-            @RequestParam(value = "schoolClassId", required = false) String schoolClassId, Model model, HttpSession session) {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date parsed;
+		try {
+			parsed = format.parse(date);
+			java.sql.Date date_for_sql = new java.sql.Date(parsed.getTime());
+			new_presence.setDateField(date_for_sql);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		presenceRepository.save(new_presence);
+		model.addAttribute("presencesList", presenceRepository.findAll());
 
-        SchoolClass schoolClass = schoolClassRepository.findById(Long.valueOf(schoolClassId)).get();
+		return "presencesList";
+	}
 
-        Teacher teacher = teacherRepository.findById(Long.valueOf(teacherId)).get();
-        Subjects subjects = subjectRepository.findById(Long.valueOf(subjectId)).get();
-        subjects.setTeacher(teacher);
-        subjects.setName(subjectName);
-        subjects.setSchoolClass(schoolClass);
+	@RequestMapping(value = "/ShowUpdatePresenceForm")
+	public String showUpdatePresenceForm(@RequestParam(value = "presenceId") String presenceId, Model model,
+			HttpSession session) {
 
-        // update
-        subjectRepository.save(subjects);
-        model.addAttribute("subjectsList", subjectRepository.findAll());
+		Presence presence = presenceRepository.findById(Long.valueOf(presenceId)).get();
+		model.addAttribute("presence", presence);
+		model.addAttribute("subjects", subjectRepository.findAll());
+		model.addAttribute("students", studentRepository.findAll());
 
-        return "subjectList";
-    }
-*/
+		return "presenceUpdateForm";
+	}
+
+	@RequestMapping(value = "/UpdatePresence", method = RequestMethod.POST)
+	public String updateSubject(@RequestParam(value = "studentId") String studentId,
+			@RequestParam(value = "subjectId", required = false) String subjectId,
+			@RequestParam(value = "presenceId", required = false) String presenceId,
+			@RequestParam(value = "presence", required = false) String presence,
+			@RequestParam(value = "date", required = false) String date, Model model, HttpSession session) {
+
+		Presence existing_presence = presenceRepository.findById(Long.valueOf(presenceId)).get();
+
+		Student student = studentRepository.findById(Long.valueOf(studentId)).get();
+		Subjects subject = subjectRepository.findById(Long.valueOf(subjectId)).get();
+		existing_presence.setStudent(student);
+		existing_presence.setSubject(subject);
+		existing_presence.setPresence(Integer.valueOf(presence));
+
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date parsed;
+		try {
+			parsed = format.parse(date);
+			java.sql.Date date_for_sql = new java.sql.Date(parsed.getTime());
+			existing_presence.setDateField(date_for_sql);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		// update
+		presenceRepository.save(existing_presence);
+		model.addAttribute("presencesList", presenceRepository.findAll());
+
+		return "presencesList";
+	}
 }

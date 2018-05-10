@@ -40,7 +40,7 @@ public class SubjectController {
         model.addAttribute("subjectsList", subjectRepository.findAll());
         model.addAttribute("teachers", teacherRepository.findAll());
         model.addAttribute("schoolClasses", schoolClassRepository.findAll());
-        return "SubjectForm";
+        return "subjectForm";
     }
 
     @RequestMapping(value = "/DeleteSubject", method = RequestMethod.POST)

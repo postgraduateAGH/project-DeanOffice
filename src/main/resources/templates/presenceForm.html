@@ -39,44 +39,36 @@
 </style>
 
 </head>
+
 <body>
+
 	<div class="container">
 		<div layout:fragment="content" align="center">
 			<div th:include="menuFragment"></div>
 			<br /> <br />
-			<form action="UpdatePresence"
+			<form action="CreatePresence"
 				class="w3-container w3-card-4 w3-light-grey" method="POST">
 				<table>
 					<tr>
 						<td>Obecnosc</td>
-						<td>
-							<input type="text" name="presence" th:value="${presence.presence}" /> 
-							<input type="hidden" name="presenceId" th:value="${presence.id}" />
-						</td>
-
+						<td><input type="text" name="presence" /></td>
 					</tr>
 					<tr>
 						<td>Student:</td>
 						<td><select class="form-control" name="studentId"
 							id="studentId">
-
-								<option selected="selected" th:value="${presence.student.id}"
-									th:text="${presence.student.name} + ', ' + ${presence.student.surname}"></option>
-
-								<option th:each="s: ${students}" th:value="${s.id}"
-									th:text="${s.name} + ', ' + ${s.surname}"></option>
+								<option value="-1">---</option>
+								<option th:each="student: ${studentsList}"
+									th:value="${student.id}"
+									th:text="${student.name} + ', ' + ${student.surname}"></option>
 						</select></td>
 					</tr>
 					<tr>
 						<td>Przedmiot:</td>
 						<td><select class="form-control" name="subjectId"
 							id="subjectId">
-
-								<option selected="selected" th:value="${presence.subject.id}"
-									th:text="${presence.subject.name}"></option>
-
-								<option th:each="subject: ${subjects}" th:value="${subject.id}"
-									th:text="${subject.name}"></option>
+								<option th:each="subject: ${subjectsList}"
+									th:value="${subject.id}" th:text="${subject.name}"></option>
 						</select></td>
 					</tr>
 					<tr>
@@ -98,18 +90,14 @@
 												};
 												date_input.datepicker(options);
 											})
-						</script> <input th:if="${presence.dateField != null}" class="form-control"
-							id="date" name="date" th:value="${presence.dateField}" type="text" /></td>
-						<input th:if="${presence.dateField == null}" class="form-control"
-							id="date" name="date" placeholder="YYYY-MM-DD" type="text" />
-						</td>
+						</script> <input class="form-control" id="date" name="date"
+							placeholder="YYYY-MM-DD" type="text" /></td>
 					</tr>
 
 
 				</table>
 				<button class="button" type="submit">Zapisz</button>
 			</form>
-
 		</div>
 </body>
 </html>
