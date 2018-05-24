@@ -38,7 +38,7 @@
                     <td>Klasa:</td>
                     <td><select class="form-control" name="studentClass"
                                 id="studentClass">
-                        <option selected="selected" th:value="${student.schoolClass.id}"
+                        <option th:if="${student.schoolClass != null}" selected="selected" th:value="${student.schoolClass.id}"
                                 th:text="${student.schoolClass.profile} + ', ' + ${student.schoolClass.school.name}"></option>
                         <option th:each="class1: ${schoolClasses}"
                                 th:value="${class1.id}"
