@@ -98,7 +98,7 @@ public class LoginController {
         return "welcome";
     }
     
-/*    @RequestMapping(value = { "/access-denied" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/access-denied" }, method = RequestMethod.GET)
     public ModelAndView accessDeniedGet() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("accessDenied");
@@ -110,5 +110,5 @@ public class LoginController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("accessDenied");
         return modelAndView;
-    }*/
+    }
 }

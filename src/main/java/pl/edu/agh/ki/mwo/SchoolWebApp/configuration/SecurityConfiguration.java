@@ -28,7 +28,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Value("${spring.queries.roles-query}")
 	private String rolesQuery;
-
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth)
 			throws Exception {
@@ -47,6 +47,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			authorizeRequests()
 				.antMatchers("/").permitAll()
 				.antMatchers("/login").permitAll()
+				.antMatchers("/welcome").permitAll()
 				.antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
 				//.antMatchers("/registration").permitAll()
 				.authenticated().and().csrf().disable().formLogin()

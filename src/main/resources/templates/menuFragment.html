@@ -1,5 +1,7 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
@@ -11,13 +13,20 @@
 
 </head>
 <body>
+	<div style="text-align: right">
+		Logged user: <span sec:authentication="name">Bob</span> Role: <span
+			sec:authentication="principal.authorities">[ADMIN,LECTURER,STUDENT]</span>
+	</div>
 
 	<nav class="navbar navbar-inverse">
 		<div class="container">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="#"></a>
 			</div>
-			<div id="navbar" class="collapse navbar-collapse">
+
+			<div id="navbar"
+				class="collapse navbar-collapse">
+
 				<ul class="nav navbar-nav">
 					<li><a href="Students">Uczniowie</a></li>
 					<li><a href="Teachers">Nauczyciele</a></li>
@@ -26,9 +35,10 @@
 					<li><a href="Subjects">Przedmioty</a></li>
 					<li><a href="Grades">Oceny</a></li>
 					<li><a href="Presences">Obecnosci</a></li>
-					<li><a href="registration">Rejestracja</a></li>
+					<li sec:authorize="hasAuthority('ADMIN')"><a href="registration">Rejestracja</a></li>
 				</ul>
 			</div>
+
 		</div>
 	</nav>
 
