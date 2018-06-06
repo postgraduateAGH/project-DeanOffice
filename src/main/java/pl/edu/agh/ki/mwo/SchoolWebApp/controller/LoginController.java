@@ -97,4 +97,18 @@ public class LoginController {
         model.addAttribute("message", "Witamy w systemie Szkoła!");
         return "welcome";
     }
+    
+/*    @RequestMapping(value = { "/access-denied" }, method = RequestMethod.GET)
+    public ModelAndView accessDeniedGet() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("accessDenied");
+        return modelAndView;
+    }
+    
+    @RequestMapping(value = { "/access-denied" }, method = RequestMethod.POST)
+    public ModelAndView accessDeniedPost() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("accessDenied");
+        return modelAndView;
+    }*/
 }
