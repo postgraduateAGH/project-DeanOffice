@@ -52,8 +52,8 @@ public class StudentController {
     	// sql z where dla danego usera tylko
     	
     	// do modelu dodamy oceny i obecnosci
-    	model.addAttribute("gradesList", studentViewDAO.getStudentGrades(currentPrincipalName) );
-    	model.addAttribute("presencesList", studentViewDAO.getStudentPresences(currentPrincipalName));
+    	model.addAttribute("gradesList", studentViewDAO.getStudentGrades(0) );
+    	model.addAttribute("presencesList", studentViewDAO.getStudentPresences(0));
         return "studentView";
     }
 

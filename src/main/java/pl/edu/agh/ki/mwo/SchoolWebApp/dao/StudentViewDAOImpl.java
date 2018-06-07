@@ -27,9 +27,7 @@ public class StudentViewDAOImpl implements StudentViewDAO {
 	
 	@Override
 	@Transactional
-	public List<Presence> getStudentPresences(String email) {
-		// wstepnie trzeba znalezc usera'a, pobrac jego id, a pozniej to id uzyc do wywolania dalszych metod
-		
+	public List<Presence> getStudentPresences(int studentId) {
 		// get current hibernate session
 		Session currentSession=getSession();
 		// create a query
@@ -42,9 +40,7 @@ public class StudentViewDAOImpl implements StudentViewDAO {
 
 	@Override
 	@Transactional
-	public List<Grades> getStudentGrades(String email) {
-		// wstepnie trzeba znalezc usera'a, pobrac jego id, a pozniej to id uzyc do wywolania dalszych metod
-		
+	public List<Grades> getStudentGrades(int studentId) {
 		// get current hibernate session
 		Session currentSession=getSession();
 		// create a query
