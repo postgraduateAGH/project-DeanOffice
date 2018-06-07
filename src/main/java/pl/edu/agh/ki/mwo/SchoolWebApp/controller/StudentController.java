@@ -35,7 +35,7 @@ public class StudentController {
 	private PresenceRepository presenceRepository;
 	
 	@Autowired
-	private StudentViewDAO studenViewDAO;
+	private StudentViewDAO studentViewDAO;
     
     @RequestMapping(value = "/Students")
     public String listStudents(Model model, HttpSession session) {
@@ -52,8 +52,8 @@ public class StudentController {
     	// sql z where dla danego usera tylko
     	
     	// do modelu dodamy oceny i obecnosci
-    	model.addAttribute("gradesList", studenViewDAO.getStudentGrades(0));
-    	model.addAttribute("presencesList", presenceRepository.findAll());
+    	model.addAttribute("gradesList", studentViewDAO.getStudentGrades(0) );
+    	model.addAttribute("presencesList", studentViewDAO.getStudentPresences(0));
         return "studentView";
     }
 

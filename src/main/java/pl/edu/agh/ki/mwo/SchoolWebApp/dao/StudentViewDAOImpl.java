@@ -2,6 +2,8 @@ package pl.edu.agh.ki.mwo.SchoolWebApp.dao;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -15,17 +17,21 @@ import pl.edu.agh.ki.mwo.SchoolWebApp.entity.Presence;
 @Repository
 public class StudentViewDAOImpl implements StudentViewDAO {
 
-	@Autowired
-	private SessionFactory sessionFactory;
+    @Autowired
+    private EntityManager entityManager;
+
+    private Session getSession() {
+        return entityManager.unwrap(Session.class);
+    }
 	
 	
 	@Override
 	@Transactional
 	public List<Presence> getStudentPresences(int studentId) {
 		// get current hibernate session
-		Session currentSession=sessionFactory.getCurrentSession();
+		Session currentSession=getSession();
 		// create a query
-		Query<Presence> theQuery=currentSession.createQuery("from presences",Presence.class);
+		Query<Presence> theQuery=currentSession.createQuery("from Presence",Presence.class);
 		// execute query and get results
 		List<Presence> presences=theQuery.getResultList();
 		// return the results
@@ -36,9 +42,9 @@ public class StudentViewDAOImpl implements StudentViewDAO {
 	@Transactional
 	public List<Grades> getStudentGrades(int studentId) {
 		// get current hibernate session
-		Session currentSession=sessionFactory.getCurrentSession();
+		Session currentSession=getSession();
 		// create a query
-		Query<Grades> theQuery=currentSession.createQuery("from grades",Grades.class);
+		Query<Grades> theQuery=currentSession.createQuery("from Grades",Grades.class);
 		// execute query and get results
 		List<Grades> grades=theQuery.getResultList();
 		// return the results
