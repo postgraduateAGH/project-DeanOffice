@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.edu.agh.ki.mwo.SchoolWebApp.entity.SchoolClass;
 import pl.edu.agh.ki.mwo.SchoolWebApp.entity.Student;
+import pl.edu.agh.ki.mwo.SchoolWebApp.repository.GradesRepository;
+import pl.edu.agh.ki.mwo.SchoolWebApp.repository.PresenceRepository;
 import pl.edu.agh.ki.mwo.SchoolWebApp.repository.SchoolClassRepository;
 import pl.edu.agh.ki.mwo.SchoolWebApp.repository.StudentRepository;
 
@@ -23,11 +25,26 @@ public class StudentController {
     @Autowired
     private SchoolClassRepository schoolClassRepository;
 
+    @Autowired
+    private GradesRepository gradeRepository;
+    
+	@Autowired
+	private PresenceRepository presenceRepository;
+    
     @RequestMapping(value = "/Students")
     public String listStudents(Model model, HttpSession session) {
 
         model.addAttribute("students", studentRepository.findAll());
         return "studentsList";
+    }
+    
+    @RequestMapping(value = "/StudentView")
+    public String studentView(Model model, HttpSession session) {
+
+    	// do modelu dodamy oceny i obecnosci
+    	model.addAttribute("gradesList", gradeRepository.findAll());
+    	model.addAttribute("presencesList", presenceRepository.findAll());
+        return "studentView";
     }
 
     @RequestMapping(value = "/DeleteStudent", method = RequestMethod.POST)
