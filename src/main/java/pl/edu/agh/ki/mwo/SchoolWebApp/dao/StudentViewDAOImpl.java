@@ -31,7 +31,7 @@ public class StudentViewDAOImpl implements StudentViewDAO {
 		// get current hibernate session
 		Session currentSession=getSession();
 		// create a query
-		Query<Presence> theQuery=currentSession.createQuery("from Presence",Presence.class);
+		Query<Presence> theQuery=currentSession.createQuery("from Presence WHERE student_id="+studentId,Presence.class);
 		// execute query and get results
 		List<Presence> presences=theQuery.getResultList();
 		// return the results
@@ -44,7 +44,7 @@ public class StudentViewDAOImpl implements StudentViewDAO {
 		// get current hibernate session
 		Session currentSession=getSession();
 		// create a query
-		Query<Grades> theQuery=currentSession.createQuery("from Grades",Grades.class);
+		Query<Grades> theQuery=currentSession.createQuery("from Grades WHERE student_id="+studentId,Grades.class);
 		// execute query and get results
 		List<Grades> grades=theQuery.getResultList();
 		// return the results

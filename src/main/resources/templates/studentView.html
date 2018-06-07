@@ -13,6 +13,7 @@
 		<div layout:fragment="content" align="center">
 			<div th:include="menuFragment" ></div>
 			<table >
+				 <caption>Oceny</caption>
 				<tr>
 					<th>Id</th>
 					<th>Ocena</th>
@@ -21,7 +22,8 @@
 				</tr>
 				<tr th:each="grade: ${gradesList}">
 					<td><span th:text="${grade.id}" /></td>
-					<td><span th:text="${grade.grade}" /></td>
+					<td th:if="${grade.grade} > 2"><span th:text="${grade.grade}" /></td>
+					<td th:if="${grade.grade} < 3"><span th:text="${grade.grade}" style="color:red;font-weight:bolder"/></td>
 					<td th:if="${grade.student != null}"><span th:text="${grade.student.name}+' '+${grade.student.surname}" /></td>
 					<td th:if="${grade.student == null}">NIE MA</td>
 					<td th:if="${grade.subjects != null}"><span th:text="${grade.subjects.name}" /></td>
@@ -29,8 +31,26 @@
 				</tr>
 			</table>
 			<br />
+			<table >
+			 	<caption>Obecnosci</caption>
+				<tr>
+					<th>Date</th>
+					<th>Student</th>
+					<th>Przedmiot</th>
+					<th>Obecnosc</th>
+				</tr>
+				<tr th:each="presence: ${presencesList}">
+					<td><span th:text="${presence.dateField}" /></td>
+					<td><span th:text="${presence.student.name}+' '+${presence.student.surname}" /></td>
+					<td><span th:text="${presence.subject.name}" /></td>
+					<td th:if="${presence.presence} > 0"><span th:text="${presence.presence}" /></td>
+					<td th:if="${presence.presence} == 0"><span th:text="${presence.presence}" style="color:red;font-weight:bolder"/></td>
+				</tr>
+			</table>
+			
 		</div>
 	</div>
+		
 </div>
 </body>
 </html>
