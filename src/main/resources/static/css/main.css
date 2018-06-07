@@ -238,4 +238,6 @@ table tr:hover td {
 .login-pf {
   background-image: url("bg-login.jpg");
   background-size: cover;
-}s
+}
+
+ul.nav a:hover { color: #337ab7 !important; }
