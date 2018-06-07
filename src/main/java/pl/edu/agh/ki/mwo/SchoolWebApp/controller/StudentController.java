@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import pl.edu.agh.ki.mwo.SchoolWebApp.dao.StudentViewDAO;
 import pl.edu.agh.ki.mwo.SchoolWebApp.entity.SchoolClass;
 import pl.edu.agh.ki.mwo.SchoolWebApp.entity.Student;
 import pl.edu.agh.ki.mwo.SchoolWebApp.repository.GradesRepository;
@@ -32,6 +33,9 @@ public class StudentController {
     
 	@Autowired
 	private PresenceRepository presenceRepository;
+	
+	@Autowired
+	private StudentViewDAO studenViewDAO;
     
     @RequestMapping(value = "/Students")
     public String listStudents(Model model, HttpSession session) {
@@ -48,7 +52,7 @@ public class StudentController {
     	// sql z where dla danego usera tylko
     	
     	// do modelu dodamy oceny i obecnosci
-    	model.addAttribute("gradesList", gradeRepository.findAll());
+    	model.addAttribute("gradesList", studenViewDAO.getStudentGrades(0));
     	model.addAttribute("presencesList", presenceRepository.findAll());
         return "studentView";
     }
