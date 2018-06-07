@@ -1,5 +1,9 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:th="http://www.thymeleaf.org"
+	  layout:decorator="layout">
 <head>
     <title></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -14,16 +18,12 @@
 <body>
 
 <div class="container">
-    <div th:include="menuFragment"></div>
-
-    <br/><br/><br/>
-    <h1>Witaj</h1>
-    <br/><br/><br/>
+    <h1 class="alert alert-danger text-center">not allowed</h1>
 </div>
 
 <script type="text/javascript"
         src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-
 </body>
+
 </html>

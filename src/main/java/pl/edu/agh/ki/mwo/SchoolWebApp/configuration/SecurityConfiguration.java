@@ -28,7 +28,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Value("${spring.queries.roles-query}")
 	private String rolesQuery;
-
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth)
 			throws Exception {
@@ -47,8 +47,64 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			authorizeRequests()
 				.antMatchers("/").permitAll()
 				.antMatchers("/login").permitAll()
-				.antMatchers("/registration").permitAll()
-				.antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
+				.antMatchers("/welcome").permitAll()
+				.antMatchers("/Students").permitAll()
+				.antMatchers("/registration").hasAuthority("ADMIN")
+				.antMatchers("/registration").hasAuthority("ADMIN")
+
+				// grades for admin and lecturer only
+				.antMatchers("/Grades").hasAnyAuthority("ADMIN","LECTURER")
+				.antMatchers("/AddGrade").hasAnyAuthority("ADMIN","LECTURER")
+				.antMatchers("/DeleteGrade").hasAnyAuthority("ADMIN","LECTURER")
+				.antMatchers("/CreateGrade").hasAnyAuthority("ADMIN","LECTURER")
+				.antMatchers("/ShowUpdateGradeForm").hasAnyAuthority("ADMIN","LECTURER")
+				.antMatchers("/UpdateGrade").hasAnyAuthority("ADMIN","LECTURER")
+
+				// presences for admin and lecturer only
+				.antMatchers("/Presences").hasAnyAuthority("ADMIN","LECTURER")
+				.antMatchers("/AddPresence").hasAnyAuthority("ADMIN","LECTURER")
+				.antMatchers("/DeletePresence").hasAnyAuthority("ADMIN","LECTURER")
+				.antMatchers("/CreatePresence").hasAnyAuthority("ADMIN","LECTURER")
+				.antMatchers("/ShowUpdatePresenceForm").hasAnyAuthority("ADMIN","LECTURER")
+				.antMatchers("/UpdatePresence").hasAnyAuthority("ADMIN","LECTURER")
+
+				// only for admin Schools, SchoolClasses, Students, Subject and Teacher
+				.antMatchers("/SchoolClasses").hasAuthority("ADMIN")
+				.antMatchers("/AddSchoolClass").hasAuthority("ADMIN")
+				.antMatchers("/CreateSchoolClass").hasAuthority("ADMIN")
+				.antMatchers("/DeleteSchoolClass").hasAuthority("ADMIN")
+				.antMatchers("/ShowUpdateSchoolClassForm").hasAuthority("ADMIN")
+				.antMatchers("/UpdateSchoolClass").hasAuthority("ADMIN")
+
+				.antMatchers("/Schools").hasAuthority("ADMIN")
+				.antMatchers("/AddSchool").hasAuthority("ADMIN")
+				.antMatchers("/CreateSchool").hasAuthority("ADMIN")
+				.antMatchers("/DeleteSchool").hasAuthority("ADMIN")
+				.antMatchers("/ShowUpdateSchoolForm").hasAuthority("ADMIN")
+				.antMatchers("/UpdateSchool").hasAuthority("ADMIN")
+
+				.antMatchers("/Students").hasAuthority("ADMIN")
+				.antMatchers("/DeleteStudent").hasAuthority("ADMIN")
+				.antMatchers("/AddStudent").hasAuthority("ADMIN")
+				.antMatchers("/CreateStudent").hasAuthority("ADMIN")
+				.antMatchers("/ShowUpdateStudentForm").hasAuthority("ADMIN")
+				.antMatchers("/UpdateStudent").hasAuthority("ADMIN")
+
+				.antMatchers("/Subjects").hasAuthority("ADMIN")
+				.antMatchers("/AddSubject").hasAuthority("ADMIN")
+				.antMatchers("/DeleteSubject").hasAuthority("ADMIN")
+				.antMatchers("/CreateSubject").hasAuthority("ADMIN")
+				.antMatchers("/ShowUpdateSubjectForm").hasAuthority("ADMIN")
+				.antMatchers("/UpdateSubject").hasAuthority("ADMIN")
+
+				.antMatchers("/Teachers").hasAuthority("ADMIN")
+				.antMatchers("/DeleteTeacher").hasAuthority("ADMIN")
+				.antMatchers("/AddTeacher").hasAuthority("ADMIN")
+				.antMatchers("/CreateTeacher").hasAuthority("ADMIN")
+				.antMatchers("/ShowUpdateTeacherForm").hasAuthority("ADMIN")
+				.antMatchers("/UpdateTeacher").hasAuthority("ADMIN")
+
+				.anyRequest()
 				.authenticated().and().csrf().disable().formLogin()
 				.loginPage("/login").failureUrl("/login?error=true")
 				.defaultSuccessUrl("/welcome")
@@ -56,8 +112,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.passwordParameter("password")
 				.and().logout()
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-				.logoutSuccessUrl("/").and().exceptionHandling()
+				.logoutSuccessUrl("/login").and().exceptionHandling()
 				.accessDeniedPage("/access-denied");
+		// antMatchers("matcher") . hasRole("role") albo hasAnyRole("lista"), ** wszystkie subdirectories
 	}
 	
 	@Override
