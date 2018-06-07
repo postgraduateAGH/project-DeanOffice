@@ -14,8 +14,8 @@
 </head>
 <body>
 	<div style="text-align: right">
-		Zalogowany jako: <span sec:authentication="name">Bob</span> Rola: <span
-			sec:authentication="principal.authorities">[ADMIN,LECTURER,STUDENT]</span>
+		Zalogowany jako: <span sec:authentication="name" style="color:white;font-weight:bold">Bob</span> Rola: <span
+			sec:authentication="principal.authorities" style="color:white;font-weight:bold">[ADMIN,LECTURER,STUDENT]</span>
 		<a href="/logout"><span class="glyphicon glyphicon-log-out"></span></a>
 	</div>
 
@@ -28,15 +28,15 @@
 			<div id="navbar" class="collapse navbar-collapse">
 
 				<ul class="nav navbar-nav">
-					<li sec:authorize="hasAuthority('ADMIN')"><a href="Students">Uczniowie</a></li>
-					<li sec:authorize="hasAuthority('ADMIN')"><a href="Teachers">Nauczyciele</a></li>
-					<li sec:authorize="hasAuthority('ADMIN')"><a href="SchoolClasses">Klasy</a></li>
-					<li sec:authorize="hasAuthority('ADMIN')"><a href="Subjects">Przedmioty</a></li>
-					<li sec:authorize="hasAnyAuthority('ADMIN','LECTURER')"><a href="Grades" >Oceny</a></li>
+					<li sec:authorize="hasAuthority('ADMIN')"><a href="Students" style="color:white;font-weight:bold">Uczniowie</a></li>
+					<li sec:authorize="hasAuthority('ADMIN')"><a href="Teachers" style="color:white;font-weight:bold">Nauczyciele</a></li>
+					<li sec:authorize="hasAuthority('ADMIN')"><a href="SchoolClasses" style="color:white;font-weight:bold">Klasy</a></li>
+					<li sec:authorize="hasAuthority('ADMIN')"><a href="Subjects" style="color:white;font-weight:bold">Przedmioty</a></li>
+					<li sec:authorize="hasAnyAuthority('ADMIN','LECTURER')"><a href="Grades" style="color:white;font-weight:bold">Oceny</a></li>
 					<li sec:authorize="hasAnyAuthority('ADMIN','LECTURER')"><a
-						href="Presences">Obecnosci</a></li>
+						href="Presences" style="color:white;font-weight:bold">Obecnosci</a></li>
 					<li sec:authorize="hasAuthority('ADMIN')"><a
-						href="registration">Rejestracja</a></li>
+						href="registration" style="color:white;font-weight:bold">Rejestracja</a></li>
 				</ul>
 			</div>
 
