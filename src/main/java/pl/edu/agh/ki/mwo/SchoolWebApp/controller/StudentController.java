@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.edu.agh.ki.mwo.SchoolWebApp.dao.StudentViewDAO;
 import pl.edu.agh.ki.mwo.SchoolWebApp.entity.SchoolClass;
 import pl.edu.agh.ki.mwo.SchoolWebApp.entity.Student;
+import pl.edu.agh.ki.mwo.SchoolWebApp.entity.User;
 import pl.edu.agh.ki.mwo.SchoolWebApp.repository.GradesRepository;
 import pl.edu.agh.ki.mwo.SchoolWebApp.repository.PresenceRepository;
 import pl.edu.agh.ki.mwo.SchoolWebApp.repository.SchoolClassRepository;
 import pl.edu.agh.ki.mwo.SchoolWebApp.repository.StudentRepository;
+import pl.edu.agh.ki.mwo.SchoolWebApp.repository.UserRepository;
 
 @Controller
 public class StudentController {
@@ -33,6 +35,9 @@ public class StudentController {
     
 	@Autowired
 	private PresenceRepository presenceRepository;
+
+	@Autowired
+	private UserRepository userRepository;
 	
 	@Autowired
 	private StudentViewDAO studentViewDAO;
@@ -49,11 +54,13 @@ public class StudentController {
     	// zalogowany user
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     	String currentPrincipalName = authentication.getName();
+    	// id usera
+    	User user=userRepository.findByEmail(currentPrincipalName);
     	// sql z where dla danego usera tylko
-    	
+    	int userId=user.getId();
     	// do modelu dodamy oceny i obecnosci
-    	model.addAttribute("gradesList", studentViewDAO.getStudentGrades(0) );
-    	model.addAttribute("presencesList", studentViewDAO.getStudentPresences(0));
+    	model.addAttribute("gradesList", studentViewDAO.getStudentGrades(userId) );
+    	model.addAttribute("presencesList", studentViewDAO.getStudentPresences(userId));
         return "studentView";
     }
 
