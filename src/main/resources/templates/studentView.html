@@ -8,6 +8,7 @@
 
 </head>
 <div class="container">
+	<h1 th:text="${currentPrincipalName}"></h1>
 	<div class="table table-hover">
 		<div layout:fragment="content" align="center">
 			<div th:include="menuFragment" ></div>
@@ -17,7 +18,6 @@
 					<th>Ocena</th>
 					<th>Student</th>
 					<th>Przedmiot</th>
-					<th colspan="2">Akcje</th>
 				</tr>
 				<tr th:each="grade: ${gradesList}">
 					<td><span th:text="${grade.id}" /></td>
@@ -26,26 +26,9 @@
 					<td th:if="${grade.student == null}">NIE MA</td>
 					<td th:if="${grade.subjects != null}"><span th:text="${grade.subjects.name}" /></td>
 					<td th:if="${grade.subjects == null}">NIE MA</td>
-					<td>
-						<form action="DeleteGrade" method="POST">
-							<input type="hidden" name="gradeId"
-								   th:value="${grade.id}" />
-							<input class="btn btn-primary" type=submit value="Skasuj" style="width:100%">
-						</form>
-					</td>
-					<td>
-						<form action="ShowUpdateGradeForm" method="POST">
-							<input type="hidden" name="gradeId"
-								   th:value="${grade.id}" />
-							<input class="btn btn-primary" type=submit value="Edytuj" style="width:100%">
-						</form>
-					</td>
 				</tr>
 			</table>
 			<br />
-			<form action="AddGrade" method="POST">
-				<button class="button"  type="submit">Dodaj</button>
-			</form>
 		</div>
 	</div>
 </div>

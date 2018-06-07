@@ -3,6 +3,8 @@ package pl.edu.agh.ki.mwo.SchoolWebApp.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,7 +42,11 @@ public class StudentController {
     
     @RequestMapping(value = "/StudentView")
     public String studentView(Model model, HttpSession session) {
-
+    	// zalogowany user
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	String currentPrincipalName = authentication.getName();
+    	// sql z where dla danego usera tylko
+    	
     	// do modelu dodamy oceny i obecnosci
     	model.addAttribute("gradesList", gradeRepository.findAll());
     	model.addAttribute("presencesList", presenceRepository.findAll());
