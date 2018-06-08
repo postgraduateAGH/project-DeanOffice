@@ -1,0 +1,51 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:th="http://www.thymeleaf.org"
+	  layout:decorator="layout">
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link th:href="@{/css/main.css}" href="/static/css/main.css" rel="stylesheet" type="text/css"  />
+
+</head>
+<div class="container">
+	<div class="table table-hover">
+		<div layout:fragment="content" align="center">
+			<div th:include="menuFragment" ></div>
+		<table>
+			<tr>
+				<th>Id</th>
+				<th>Nazwa</th>
+				<th>Adres</th>
+				<th colspan="2">Akcje</th>
+			</tr>
+			<tr th:each="school: ${schools}">
+				<td><span th:text="${school.id}" /></td>
+				<td><p>
+						<span class="glyphicon glyphicon-education" /> <span
+							th:text="${school.name}" />
+					</p></td>
+				<td><p>
+						<span class="glyphicon glyphicon-envelope" /> <span
+							th:text="${school.address}" />
+					</p> </span></span></td>
+				<td>
+					<form action="DeleteSchool" method="POST">
+						<input type="hidden" name="schoolId" th:value="${school.id}" />
+						<input class="btn btn-primary" type=submit value="Skasuj" style="width:100%">
+					</form>
+				</td>
+				<td>
+					<form action="ShowUpdateSchoolForm" method="POST">
+						<input type="hidden" name="schoolId" th:value="${school.id}" />
+						<input class="btn btn-primary" type=submit value="Edytuj" style="width:100%">
+					</form>
+				</td>
+			</tr>
+		</table>
+		<br /> <button class="button"  type="submit">Dodaj</button>
+	</div>
+	</div>
+	</div>
+
+</body>
+</html>

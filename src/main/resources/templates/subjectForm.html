@@ -1,0 +1,37 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:th="http://www.thymeleaf.org"
+	  layout:decorator="layout">
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link th:href="@{/css/main.css}" href="/static/css/main.css" rel="stylesheet" type="text/css"  />
+
+</head>
+
+<body>
+<div class="container">
+
+	<div layout:fragment="content" align="center">
+		<div th:include="menuFragment"></div>
+    	<br/><br/>
+	   			<form action="CreateSubject" class="w3-container w3-card-4 w3-light-grey" method="POST">
+					<table>
+						<tr><td>Nazwa:</td><td><input type="text" name="subjectName" /></td></tr>
+						<tr><td>nauczyciel:</td><td><select class="form-control" name="teacher" id="teacher">
+							<option value="-1">---</option>
+							<option th:each="teacher: ${teachers}" th:value="${teacher.id}" th:text="${teacher.name} + ', ' + ${teacher.surname}"></option>
+						</select></td></tr>
+						<tr><td>klasa:</td><td><select class="form-control" name="schoolClassId" id="schoolClassId">
+							<option value="-1">---</option>
+							<option th:each="schoolClass: ${schoolClasses}" th:value="${schoolClass.id}" th:text="${schoolClass.profile}"></option>
+						</select></td></tr>
+					</table><br/><BR/>
+					<button class="button"  type="submit">Utwórz</button>
+				</form>
+    </div>
+
+</body>
+</html>
+
+

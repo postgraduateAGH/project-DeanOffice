@@ -1,0 +1,39 @@
+<
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layout">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link th:href="@{/css/main.css}" href="/static/css/main.css" rel="stylesheet" type="text/css"/>
+
+</head>
+<body>
+<div class="container">
+    <div layout:fragment="content" align="center">
+        <div th:include="menuFragment"></div>
+        <br/> <br/>
+        <form action="UpdateSchool" class="w3-container w3-card-4 w3-light-grey" method="POST">
+            <table>
+                <tr>
+                    <td>nazwa:</td>
+                    <td><input class="w3-input w3-border" type="text" name="schoolName"
+                               th:value="${school.name}"/></td>
+                </tr>
+                <tr>
+                    <td>adres:</td>
+                    <td><input class="w3-input w3-border" type="text" name="schoolAddress"
+                               th:value="${school.address}"/></td>
+                    <input type="hidden" name="schoolId" th:value="${school.id}"/>
+                </tr>
+            </table>
+            <br/>
+            <button class="button" type="submit">Zapisz</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
+
+

@@ -1,0 +1,56 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:th="http://www.thymeleaf.org"
+	  layout:decorator="layout">
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link th:href="@{/css/main.css}" href="/static/css/main.css" rel="stylesheet" type="text/css"  />
+
+</head>
+<div class="container">
+	<h1 th:text="${currentPrincipalName}"></h1>
+	<div class="table table-hover">
+		<div layout:fragment="content" align="center">
+			<div th:include="menuFragment" ></div>
+			<table >
+				 <caption>Oceny</caption>
+				<tr>
+					<th>Id</th>
+					<th>Ocena</th>
+					<th>Student</th>
+					<th>Przedmiot</th>
+				</tr>
+				<tr th:each="grade: ${gradesList}">
+					<td><span th:text="${grade.id}" /></td>
+					<td th:if="${grade.grade} > 2"><span th:text="${grade.grade}" /></td>
+					<td th:if="${grade.grade} < 3"><span th:text="${grade.grade}" style="color:red;font-weight:bolder"/></td>
+					<td th:if="${grade.student != null}"><span th:text="${grade.student.name}+' '+${grade.student.surname}" /></td>
+					<td th:if="${grade.student == null}">NIE MA</td>
+					<td th:if="${grade.subjects != null}"><span th:text="${grade.subjects.name}" /></td>
+					<td th:if="${grade.subjects == null}">NIE MA</td>
+				</tr>
+			</table>
+			<br />
+			<table >
+			 	<caption>Obecnosci</caption>
+				<tr>
+					<th>Date</th>
+					<th>Student</th>
+					<th>Przedmiot</th>
+					<th>Obecnosc</th>
+				</tr>
+				<tr th:each="presence: ${presencesList}">
+					<td><span th:text="${presence.dateField}" /></td>
+					<td><span th:text="${presence.student.name}+' '+${presence.student.surname}" /></td>
+					<td><span th:text="${presence.subject.name}" /></td>
+					<td th:if="${presence.presence} > 0"><span th:text="${presence.presence}" /></td>
+					<td th:if="${presence.presence} == 0"><span th:text="${presence.presence}" style="color:red;font-weight:bolder"/></td>
+				</tr>
+			</table>
+			
+		</div>
+	</div>
+		
+</div>
+</body>
+</html>
