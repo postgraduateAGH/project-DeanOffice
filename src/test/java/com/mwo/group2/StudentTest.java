@@ -50,29 +50,29 @@ public class StudentTest extends User {
 	@Test
 	public void testGetStudentStatus() {
 		Student student = new Student();
-		student.setStudentStatus("test");
-		Assert.assertEquals("test", student.getStudentStatus());
+		student.setStudentStatus(StudentStatus.NORMAL);
+		Assert.assertEquals(StudentStatus.NORMAL, student.getStudentStatus());
 	}
 
 	@Test
 	public void testSetStudentStatus() {
 		Student student = new Student();
-		student.setStudentStatus("test");
-		Assert.assertEquals("test", student.getStudentStatus());
+		student.setStudentStatus(StudentStatus.NORMAL);
+		Assert.assertEquals(StudentStatus.NORMAL, student.getStudentStatus());
 	}
 
 	@Test
 	public void testGetGrades() {
 		Student student = new Student();
-		student.setGrades("test");
-		Assert.assertEquals("test", student.getGrades());
+		student.setGrades(Grade.bdb); 
+		Assert.assertEquals(Grade.bdb, student.getGrades());
 	}
 
 	@Test
 	public void testSetGrades() {
 		Student student = new Student();
-		student.setGrades("test");
-		Assert.assertEquals("test", student.getGrades());
+		student.setGrades(Grade.bdb); 
+		Assert.assertEquals(Grade.bdb, student.getGrades());
 	}
 
 }
