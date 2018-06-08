@@ -104,6 +104,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/ShowUpdateTeacherForm").hasAuthority("ADMIN")
 				.antMatchers("/UpdateTeacher").hasAuthority("ADMIN")
 
+				// student view
+				.antMatchers("/studentView").hasAuthority("STUDENT")
+				
 				.anyRequest()
 				.authenticated().and().csrf().disable().formLogin()
 				.loginPage("/login").failureUrl("/login?error=true")

@@ -3,16 +3,23 @@ package pl.edu.agh.ki.mwo.SchoolWebApp.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import pl.edu.agh.ki.mwo.SchoolWebApp.dao.StudentViewDAO;
 import pl.edu.agh.ki.mwo.SchoolWebApp.entity.SchoolClass;
 import pl.edu.agh.ki.mwo.SchoolWebApp.entity.Student;
+import pl.edu.agh.ki.mwo.SchoolWebApp.entity.User;
+import pl.edu.agh.ki.mwo.SchoolWebApp.repository.GradesRepository;
+import pl.edu.agh.ki.mwo.SchoolWebApp.repository.PresenceRepository;
 import pl.edu.agh.ki.mwo.SchoolWebApp.repository.SchoolClassRepository;
 import pl.edu.agh.ki.mwo.SchoolWebApp.repository.StudentRepository;
+import pl.edu.agh.ki.mwo.SchoolWebApp.repository.UserRepository;
 
 @Controller
 public class StudentController {
@@ -23,11 +30,38 @@ public class StudentController {
     @Autowired
     private SchoolClassRepository schoolClassRepository;
 
+    @Autowired
+    private GradesRepository gradeRepository;
+    
+	@Autowired
+	private PresenceRepository presenceRepository;
+
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
+	private StudentViewDAO studentViewDAO;
+    
     @RequestMapping(value = "/Students")
     public String listStudents(Model model, HttpSession session) {
 
         model.addAttribute("students", studentRepository.findAll());
         return "studentsList";
+    }
+    
+    @RequestMapping(value = "/StudentView")
+    public String studentView(Model model, HttpSession session) {
+    	// zalogowany user
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	String currentPrincipalName = authentication.getName();
+    	// id usera
+    	User user=userRepository.findByEmail(currentPrincipalName);
+    	// sql z where dla danego usera tylko
+    	int userId=user.getId();
+    	// do modelu dodamy oceny i obecnosci
+    	model.addAttribute("gradesList", studentViewDAO.getStudentGrades(userId) );
+    	model.addAttribute("presencesList", studentViewDAO.getStudentPresences(userId));
+        return "studentView";
     }
 
     @RequestMapping(value = "/DeleteStudent", method = RequestMethod.POST)

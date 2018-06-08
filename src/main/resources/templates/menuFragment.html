@@ -29,6 +29,7 @@
 
 				<ul class="nav navbar-nav">
 					<li sec:authorize="hasAuthority('ADMIN')"><a href="Students" style="color:white;font-weight:bold">Uczniowie</a></li>
+					<li sec:authorize="hasAuthority('STUDENT')"><a href="StudentView" style="color:white;font-weight:bold">Oceny i Obecnosci</a></li>
 					<li sec:authorize="hasAuthority('ADMIN')"><a href="Teachers" style="color:white;font-weight:bold">Nauczyciele</a></li>
 					<li sec:authorize="hasAuthority('ADMIN')"><a href="SchoolClasses" style="color:white;font-weight:bold">Klasy</a></li>
 					<li sec:authorize="hasAuthority('ADMIN')"><a href="Subjects" style="color:white;font-weight:bold">Przedmioty</a></li>

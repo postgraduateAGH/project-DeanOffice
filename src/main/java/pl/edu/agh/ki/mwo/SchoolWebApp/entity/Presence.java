@@ -29,7 +29,7 @@ public class Presence implements java.io.Serializable {
 	private Student student;
 
 	@Column(name = "date")
-	private Date dateField;
+	private String dateField;
 
 	@Column(name = "presence")
 	private int presence;
@@ -66,11 +66,11 @@ public class Presence implements java.io.Serializable {
 		this.student = student;
 	}
 
-	public Date getDateField() {
+	public String getDateField() {
 		return dateField;
 	}
 
-	public void setDateField(Date dateField) {
+	public void setDateField(String dateField) {
 		this.dateField = dateField;
 	}
 
@@ -79,7 +79,7 @@ public class Presence implements java.io.Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Presence(Subjects subject, Student student, Date dateField) {
+	public Presence(Subjects subject, Student student, String dateField) {
 		super();
 		this.subject = subject;
 		this.student = student;

@@ -1,6 +1,6 @@
 package pl.edu.agh.ki.mwo.SchoolWebApp.controller;
 
-import java.util.Date;
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -72,16 +72,8 @@ public class PresenceController {
 		new_presence.setSubject(subject);
 		new_presence.setPresence(Integer.valueOf(presence));
 
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		Date parsed;
-		try {
-			parsed = format.parse(date);
-			java.sql.Date date_for_sql = new java.sql.Date(parsed.getTime());
-			new_presence.setDateField(date_for_sql);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		java.sql.Date date_for_sql = java.sql.Date.valueOf(date);
+		new_presence.setDateField(date);
 		
 		presenceRepository.save(new_presence);
 		model.addAttribute("presencesList", presenceRepository.findAll());
@@ -116,16 +108,8 @@ public class PresenceController {
 		existing_presence.setSubject(subject);
 		existing_presence.setPresence(Integer.valueOf(presence));
 
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		Date parsed;
-		try {
-			parsed = format.parse(date);
-			java.sql.Date date_for_sql = new java.sql.Date(parsed.getTime());
-			existing_presence.setDateField(date_for_sql);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		java.sql.Date date_for_sql = java.sql.Date.valueOf(date);
+		existing_presence.setDateField(date);
 
 		// update
 		presenceRepository.save(existing_presence);
