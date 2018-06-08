@@ -1,0 +1,53 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:th="http://www.thymeleaf.org"
+	  layout:decorator="layout">
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link th:href="@{/css/main.css}" href="/static/css/main.css" rel="stylesheet" type="text/css"  />
+
+</head>
+<div class="container">
+	<div class="table table-hover">
+		<div layout:fragment="content" align="center">
+			<div th:include="menuFragment" ></div>
+			<table >
+				<tr>
+					<th>Id</th>
+					<th>Nazwa</th>
+					<th>Nauczyciele</th>
+					<th>klasy</th>
+					<th colspan="2">Akcje</th>
+				</tr>
+				<tr th:each="subject: ${subjectsList}">
+					<td><span th:text="${subject.id}" /></td>
+					<td><span th:text="${subject.name}" /></td>
+					<td th:if="${subject.teacher != null}"><span th:text="${subject.teacher.name}+' '+${subject.teacher.surname}" /></td>
+					<td th:if="${subject.teacher == null}">NIE MA</td>
+					<td th:if="${subject.schoolClass != null}"><span th:text="${subject.schoolClass.profile}" /></td>
+					<td th:if="${subject.schoolClass == null}">NIE MA</td>
+					<td>
+						<form action="DeleteSubject" method="POST">
+							<input type="hidden" name="subjectId"
+								   th:value="${subject.id}" />
+							<input class="btn btn-primary" type=submit value="Skasuj" style="width:100%">
+						</form>
+					</td>
+					<td>
+						<form action="ShowUpdateSubjectForm" method="POST">
+							<input type="hidden" name="subjectId"
+								   th:value="${subject.id}" />
+							<input class="btn btn-primary" type=submit value="Edytuj" style="width:100%">
+						</form>
+					</td>
+				</tr>
+			</table>
+			<br />
+			<form action="AddSubject" method="POST">
+				<button class="button"  type="submit">Dodaj</button>
+			</form>
+		</div>
+	</div>
+</div>
+</body>
+</html>

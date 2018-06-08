@@ -1,0 +1,58 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:th="http://www.thymeleaf.org"
+	  layout:decorator="layout">
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link th:href="@{/css/main.css}" href="/static/css/main.css" rel="stylesheet" type="text/css"  />
+
+</head>
+<div class="container">
+	<div class="table table-hover">
+		<div layout:fragment="content" align="center">
+			<div th:include="menuFragment" ></div>
+		<table >
+			<tr>
+				<th>Id</th>
+				<th>Rok rozpoczęcia</th>
+				<th>Obecny rok</th>
+				<th>Profil</th>
+				<th>Nauczyciel</th>
+				<th>Szkola</th>
+
+				<th colspan="2">Akcje</th>
+			</tr>
+			<tr th:each="schoolClass: ${schoolClasses}">
+				<td><span th:text="${schoolClass.id}" /></td>
+				<td><span th:text="${schoolClass.startYear}" /></td>
+				<td><span th:text="${schoolClass.currentYear}" /></td>
+				<td><span th:text="${schoolClass.profile}" /></td>
+				<td th:if="${schoolClass.teacher != null}"><span th:text="${schoolClass.teacher.name}+' '+${schoolClass.teacher.surname}" /></td>
+				<td th:if="${schoolClass.teacher == null}">NIE MA</td>
+				<td><span
+					th:text="${schoolClass.school.name}+' - '+${schoolClass.school.address}" /></td>
+				<td>
+					<form action="DeleteSchoolClass" method="POST">
+						<input type="hidden" name="schoolClassId"
+							th:value="${schoolClass.id}" />
+						<input class="btn btn-primary" type=submit value="Skasuj" style="width:100%">
+					</form>
+				</td>
+				<td>
+					<form action="ShowUpdateSchoolClassForm" method="POST">
+						<input type="hidden" name="schoolClassId"
+							th:value="${schoolClass.id}" />
+						<input class="btn btn-primary" type=submit value="Edytuj" style="width:100%">
+					</form>
+				</td>
+			</tr>
+		</table>
+		<br />
+			<form action="AddSchoolClass" method="POST">
+				<button class="button"  type="submit">Dodaj</button>
+			</form>
+	</div>
+	</div>
+</div>
+</body>
+</html>
