@@ -1,1 +1,0 @@
-[![Build Status](https://travis-ci.org/Yankowski/dziekanat.svg?branch=master)](https://travis-ci.org/Yankowski/Dziekanat) [![codecov](https://codecov.io/gh/Yankowski/Dziekanat/branch/master/graph/badge.svg)](https://codecov.io/gh/Yankowski/Dziekanat)
